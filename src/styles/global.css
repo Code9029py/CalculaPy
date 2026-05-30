@@ -467,6 +467,142 @@ h3 {
   margin: 6px 0 0;
 }
 
+.calculator-form {
+  display: grid;
+  gap: 18px;
+}
+
+.field-group {
+  display: grid;
+  gap: 6px;
+}
+
+.field-group label,
+.segmented-field legend {
+  color: #24362d;
+  font-weight: 900;
+}
+
+.field-group input {
+  border: 1px solid #bdccc3;
+  border-radius: 8px;
+  color: #14251c;
+  min-height: 48px;
+  padding: 10px 12px;
+  width: 100%;
+}
+
+.field-group input:focus,
+.segmented-field label:focus-within,
+.button:focus-visible,
+.site-nav a:focus-visible,
+.site-footer a:focus-visible {
+  outline: 3px solid #8fd0b7;
+  outline-offset: 2px;
+}
+
+.field-group input[aria-invalid="true"] {
+  border-color: #b3261e;
+}
+
+.field-help {
+  color: #52645a;
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.segmented-field {
+  border: 0;
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.segmented-field legend {
+  margin-bottom: 8px;
+}
+
+.segmented-field label {
+  align-items: center;
+  background: #f7faf7;
+  border: 1px solid #d4e0d8;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  min-height: 48px;
+  padding: 10px 12px;
+}
+
+.segmented-field input {
+  accent-color: #14684d;
+  height: 18px;
+  width: 18px;
+}
+
+.calculator-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.action-feedback {
+  color: #14684d;
+  font-weight: 800;
+  margin: 0;
+}
+
+.example-list {
+  display: grid;
+  gap: 12px;
+}
+
+.example-list article {
+  border-top: 1px solid #e5ece6;
+  padding-top: 12px;
+}
+
+.example-list article:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.example-list h3 {
+  font-size: 1rem;
+  margin: 0 0 4px;
+}
+
+.example-list p {
+  color: #52645a;
+  margin: 0 0 4px;
+}
+
+.example-list strong {
+  color: #14251c;
+}
+
+.sticky-note {
+  background: #eef5ef;
+  border: 1px solid #cbd8cf;
+  border-radius: 8px;
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  position: sticky;
+  top: 96px;
+}
+
+.sticky-note h2 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.sticky-note p {
+  color: #3e4f45;
+  margin: 0;
+}
+
 @media (max-width: 720px) {
   .site-header__inner,
   .site-footer__inner {
@@ -502,5 +638,13 @@ h3 {
 
   .review-pill {
     border-radius: 8px;
+  }
+
+  .calculator-actions .button {
+    width: 100%;
+  }
+
+  .sticky-note {
+    position: static;
   }
 }
