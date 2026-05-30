@@ -146,7 +146,9 @@ h3 {
 }
 
 .hero__lead,
-.prose p {
+.prose p,
+.section-heading p,
+.calculator-card p {
   color: #3e4f45;
   font-size: 1.06rem;
   max-width: 70ch;
@@ -211,6 +213,65 @@ h3 {
 .site-footer__links {
   display: flex;
   gap: 4px;
+}
+
+.section-heading {
+  margin-bottom: 24px;
+  max-width: 780px;
+}
+
+.calculator-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
+.calculator-card {
+  background: #ffffff;
+  border: 1px solid #dce6df;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.calculator-card h2 {
+  font-size: 1.35rem;
+  margin-top: 0;
+}
+
+.calculator-card__category {
+  color: #2e6b55;
+  font-size: 0.84rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+.metadata-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.metadata-list div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.metadata-list dt {
+  color: #52645a;
+  font-weight: 700;
+}
+
+.metadata-list dd {
+  color: #14251c;
+  font-weight: 800;
+  margin: 0;
+  text-align: right;
 }
 
 @media (max-width: 720px) {
