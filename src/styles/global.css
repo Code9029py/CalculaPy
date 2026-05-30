@@ -202,6 +202,11 @@ h3 {
   background: #eef4ee;
 }
 
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 .site-footer {
   border-top: 1px solid #dfe6dd;
   color: #516157;
@@ -312,6 +317,156 @@ h3 {
   font-weight: 800;
 }
 
+.calculator-page {
+  padding-top: 32px;
+}
+
+.calculator-hero {
+  align-items: flex-start;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.calculator-hero p:not(.eyebrow):not(.review-pill) {
+  color: #3e4f45;
+  font-size: 1.06rem;
+  max-width: 72ch;
+}
+
+.review-pill {
+  background: #e8efe8;
+  border: 1px solid #cbd8cf;
+  border-radius: 999px;
+  color: #1a4c3b;
+  flex: 0 0 auto;
+  font-size: 0.9rem;
+  font-weight: 800;
+  margin: 4px 0 0;
+  padding: 8px 12px;
+}
+
+.calculator-layout {
+  align-items: start;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.7fr);
+}
+
+.calculator-layout__main,
+.calculator-layout__aside {
+  display: grid;
+  gap: 16px;
+}
+
+.result-card,
+.info-box,
+.disclaimer-box,
+.calculator-form {
+  background: #ffffff;
+  border: 1px solid #dce6df;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.result-card {
+  border-color: #b8d4c8;
+  box-shadow: 0 16px 40px rgba(21, 63, 47, 0.08);
+}
+
+.result-card__label,
+.result-card__helper,
+.muted {
+  color: #52645a;
+  margin: 0;
+}
+
+.result-card__value {
+  color: #0f513d;
+  display: block;
+  font-size: clamp(2rem, 10vw, 3.4rem);
+  letter-spacing: 0;
+  line-height: 1;
+  margin: 8px 0 10px;
+}
+
+.result-breakdown {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+}
+
+.result-breakdown div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 10px;
+}
+
+.result-breakdown div + div {
+  border-top: 1px solid #e5ece6;
+}
+
+.result-breakdown dt {
+  color: #52645a;
+  font-weight: 700;
+}
+
+.result-breakdown dd {
+  color: #14251c;
+  font-weight: 900;
+  margin: 0;
+  text-align: right;
+}
+
+.info-box h2,
+.disclaimer-box h2 {
+  font-size: 1.1rem;
+  margin: 0 0 12px;
+}
+
+.info-box__content p,
+.disclaimer-box p {
+  color: #3e4f45;
+  margin: 0;
+}
+
+.source-list {
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+}
+
+.source-list li {
+  display: grid;
+  gap: 3px;
+}
+
+.source-list a,
+.source-list strong {
+  color: #14684d;
+  font-weight: 800;
+}
+
+.source-list span {
+  color: #52645a;
+}
+
+.disclaimer-box {
+  background: #fff9e8;
+  border-color: #ead69a;
+}
+
+.field-error {
+  color: #9d1c1c;
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin: 6px 0 0;
+}
+
 @media (max-width: 720px) {
   .site-header__inner,
   .site-footer__inner {
@@ -334,5 +489,18 @@ h3 {
 
   .source-table__row {
     grid-template-columns: 1fr;
+  }
+
+  .calculator-hero,
+  .calculator-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .calculator-hero {
+    flex-direction: column;
+  }
+
+  .review-pill {
+    border-radius: 8px;
   }
 }
