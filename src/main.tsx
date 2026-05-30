@@ -1,19 +1,14 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 
+import { App } from "./app/App";
 import "./styles/global.css";
-
-function App() {
-  return (
-    <main className="app-shell">
-      <h1>CalculaPy</h1>
-      <p>Calculadoras utiles y orientativas para Paraguay.</p>
-    </main>
-  );
-}
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>
 );
