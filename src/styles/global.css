@@ -123,7 +123,7 @@ p {
 
 h1 {
   color: #10231a;
-  font-size: clamp(2.1rem, 8vw, 4.4rem);
+  font-size: 3.8rem;
   letter-spacing: 0;
   line-height: 1.02;
   margin: 0 0 20px;
@@ -385,7 +385,7 @@ h3 {
 .result-card__value {
   color: #0f513d;
   display: block;
-  font-size: clamp(2rem, 10vw, 3.4rem);
+  font-size: 3.2rem;
   letter-spacing: 0;
   line-height: 1;
   margin: 8px 0 10px;
@@ -604,6 +604,10 @@ h3 {
 }
 
 @media (max-width: 720px) {
+  h1 {
+    font-size: 2.35rem;
+  }
+
   .site-header__inner,
   .site-footer__inner {
     align-items: flex-start;
@@ -646,5 +650,15 @@ h3 {
 
   .sticky-note {
     position: static;
+  }
+}
+
+@media (max-width: 420px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .result-card__value {
+    font-size: 2.25rem;
   }
 }

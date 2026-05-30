@@ -93,6 +93,7 @@ export function IvaCalculator() {
             Podes escribir 100000, 100.000 o 100000,50.
           </p>
           <ValidationMessage
+            id="iva-amount-error"
             message={validationErrors.amount}
           />
         </div>

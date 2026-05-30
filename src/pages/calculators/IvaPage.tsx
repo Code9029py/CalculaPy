@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { PageMeta } from "../../components/PageMeta";
 import { CalculatorLayout } from "../../components/calculator/CalculatorLayout";
 import { IvaCalculator } from "../../calculators/iva/IvaCalculator";
@@ -22,9 +24,9 @@ export function IvaPage() {
               Permite agregar IVA a un monto neto o separar el IVA de un monto
               que ya lo incluye. Usa las tasas 5% y 10%.
             </p>
-            <a className="button button--secondary" href="/contacto">
+            <Link className="button button--secondary" to="/contacto">
               Reportar error
-            </a>
+            </Link>
           </div>
         }
       >
