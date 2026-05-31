@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { DisclaimerBox } from "../../components/calculator/DisclaimerBox";
 import { FormulaBox } from "../../components/calculator/FormulaBox";
@@ -73,147 +74,161 @@ export function IvaCalculator() {
 
   return (
     <>
-      <div className="calculator-form">
-        <div className="field-group">
-          <label htmlFor="iva-amount">Monto</label>
-          <input
-            id="iva-amount"
-            inputMode="decimal"
-            placeholder="Ej. 100000"
-            type="text"
-            value={amountText}
-            onChange={(event) => {
-              setAmountText(event.target.value);
-              setCopyState("idle");
-            }}
-            aria-describedby="iva-amount-help iva-amount-error"
-            aria-invalid={Boolean(validationErrors.amount)}
-          />
-          <p className="field-help" id="iva-amount-help">
-            Podes escribir 100000, 100.000 o 100000,50.
-          </p>
-          <ValidationMessage
-            id="iva-amount-error"
-            message={validationErrors.amount}
-          />
+      <div className="calculator-primary-grid">
+        <div className="calculator-form">
+          <div className="field-group">
+            <label htmlFor="iva-amount">Monto</label>
+            <input
+              id="iva-amount"
+              inputMode="decimal"
+              placeholder="Ej. 100000"
+              type="text"
+              value={amountText}
+              onChange={(event) => {
+                setAmountText(event.target.value);
+                setCopyState("idle");
+              }}
+              aria-describedby="iva-amount-help iva-amount-error"
+              aria-invalid={Boolean(validationErrors.amount)}
+            />
+            <p className="field-help" id="iva-amount-help">
+              Podes escribir 100000, 100.000 o 100000,50.
+            </p>
+            <ValidationMessage
+              id="iva-amount-error"
+              message={validationErrors.amount}
+            />
+          </div>
+
+          <fieldset className="segmented-field">
+            <legend>Operacion</legend>
+            <label>
+              <input
+                checked={mode === "add"}
+                name="iva-mode"
+                type="radio"
+                onChange={() => setMode("add")}
+              />
+              Agregar IVA
+            </label>
+            <label>
+              <input
+                checked={mode === "included"}
+                name="iva-mode"
+                type="radio"
+                onChange={() => setMode("included")}
+              />
+              Separar IVA incluido
+            </label>
+          </fieldset>
+
+          <fieldset className="segmented-field">
+            <legend>Tasa</legend>
+            <label>
+              <input
+                checked={rate === 10}
+                name="iva-rate"
+                type="radio"
+                onChange={() => setRate(10)}
+              />
+              10%
+            </label>
+            <label>
+              <input
+                checked={rate === 5}
+                name="iva-rate"
+                type="radio"
+                onChange={() => setRate(5)}
+              />
+              5%
+            </label>
+          </fieldset>
+
+          <div className="calculator-actions">
+            <button
+              className="button button--secondary"
+              type="button"
+              onClick={handleClear}
+            >
+              Limpiar
+            </button>
+          </div>
         </div>
 
-        <fieldset className="segmented-field">
-          <legend>Operacion</legend>
-          <label>
-            <input
-              checked={mode === "add"}
-              name="iva-mode"
-              type="radio"
-              onChange={() => setMode("add")}
-            />
-            Agregar IVA
-          </label>
-          <label>
-            <input
-              checked={mode === "included"}
-              name="iva-mode"
-              type="radio"
-              onChange={() => setMode("included")}
-            />
-            Separar IVA incluido
-          </label>
-        </fieldset>
-
-        <fieldset className="segmented-field">
-          <legend>Tasa</legend>
-          <label>
-            <input
-              checked={rate === 10}
-              name="iva-rate"
-              type="radio"
-              onChange={() => setRate(10)}
-            />
-            10%
-          </label>
-          <label>
-            <input
-              checked={rate === 5}
-              name="iva-rate"
-              type="radio"
-              onChange={() => setRate(5)}
-            />
-            5%
-          </label>
-        </fieldset>
-
-        <div className="calculator-actions">
-          <button
-            className="button button--primary"
-            disabled={!result}
-            type="button"
-            onClick={handleCopy}
-          >
-            Copiar resultado
-          </button>
-          <button
-            className="button button--secondary"
-            type="button"
-            onClick={handleClear}
-          >
-            Limpiar
-          </button>
-        </div>
-        {copyState === "copied" ? (
-          <p className="action-feedback">Resultado copiado.</p>
-        ) : null}
-        {copyState === "failed" ? (
-          <p className="field-error">
-            No se pudo copiar automaticamente. Podes seleccionar el resultado.
-          </p>
+        {result ? (
+          <ResultCard
+            actions={
+              <>
+                <button
+                  className="button button--primary"
+                  type="button"
+                  onClick={handleCopy}
+                >
+                  Copiar resultado
+                </button>
+                {copyState === "copied" ? (
+                  <span className="action-feedback">Resultado copiado.</span>
+                ) : null}
+                {copyState === "failed" ? (
+                  <span className="field-error">
+                    No se pudo copiar automaticamente.
+                  </span>
+                ) : null}
+              </>
+            }
+            title={resultLabel}
+            result={formatCurrency(resultValue)}
+            helper="Resultado orientativo segun los datos ingresados."
+            rows={[
+              { label: "Monto neto", value: formatCurrency(result.netAmount) },
+              { label: `IVA ${result.rate}%`, value: formatCurrency(result.ivaAmount) },
+              { label: "Total con IVA", value: formatCurrency(result.grossAmount) }
+            ]}
+          />
         ) : null}
       </div>
 
-      {result ? (
-        <ResultCard
-          title={resultLabel}
-          result={formatCurrency(resultValue)}
-          helper="Resultado orientativo segun los datos ingresados."
-          rows={[
-            { label: "Monto neto", value: formatCurrency(result.netAmount) },
-            { label: `IVA ${result.rate}%`, value: formatCurrency(result.ivaAmount) },
-            { label: "Total con IVA", value: formatCurrency(result.grossAmount) }
-          ]}
-        />
-      ) : null}
+      <div className="calculator-secondary-grid">
+        <FormulaBox>
+          {mode === "add" ? (
+            <p>
+              IVA = monto neto x tasa. Total con IVA = monto neto + IVA.
+            </p>
+          ) : (
+            <p>
+              Monto neto = monto con IVA / (1 + tasa). IVA = monto con IVA -
+              monto neto.
+            </p>
+          )}
+        </FormulaBox>
 
-      <FormulaBox>
-        {mode === "add" ? (
-          <p>
-            IVA = monto neto x tasa. Total con IVA = monto neto + IVA.
-          </p>
-        ) : (
-          <p>
-            Monto neto = monto con IVA / (1 + tasa). IVA = monto con IVA -
-            monto neto.
-          </p>
-        )}
-      </FormulaBox>
+        <section className="info-box">
+          <h2>Ejemplo rapido</h2>
+          <div className="example-list">
+            {ivaExamples.map((example) => (
+              <article key={example.title}>
+                <h3>{example.title}</h3>
+                <p>{example.input}</p>
+                <strong>{example.output}</strong>
+              </article>
+            ))}
+          </div>
+        </section>
 
-      <section className="info-box">
-        <h2>Ejemplo practico</h2>
-        <div className="example-list">
-          {ivaExamples.map((example) => (
-            <article key={example.title}>
-              <h3>{example.title}</h3>
-              <p>{example.input}</p>
-              <strong>{example.output}</strong>
-            </article>
-          ))}
+        <div>
+          <SourceBox
+            sources={ivaSources}
+            lastReviewedAt={ivaMetadata.lastReviewedAt}
+          />
+          <p className="report-note">
+            <Link className="inline-link" to="/contacto">
+              Reportar un error
+            </Link>
+          </p>
         </div>
-      </section>
 
-      <SourceBox
-        sources={ivaSources}
-        lastReviewedAt={ivaMetadata.lastReviewedAt}
-      />
-
-      <DisclaimerBox>{globalDisclaimer}</DisclaimerBox>
+        <DisclaimerBox>{globalDisclaimer}</DisclaimerBox>
+      </div>
     </>
   );
 }

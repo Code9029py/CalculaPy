@@ -4,13 +4,20 @@ type ResultRow = {
 };
 
 type ResultCardProps = {
+  actions?: React.ReactNode;
   title: string;
   result: string;
   helper: string;
   rows: ResultRow[];
 };
 
-export function ResultCard({ title, result, helper, rows }: ResultCardProps) {
+export function ResultCard({
+  actions,
+  title,
+  result,
+  helper,
+  rows
+}: ResultCardProps) {
   return (
     <section className="result-card" aria-live="polite">
       <p className="result-card__label">{title}</p>
@@ -24,6 +31,7 @@ export function ResultCard({ title, result, helper, rows }: ResultCardProps) {
           </div>
         ))}
       </dl>
+      {actions ? <div className="result-card__actions">{actions}</div> : null}
     </section>
   );
 }

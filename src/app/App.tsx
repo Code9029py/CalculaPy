@@ -10,6 +10,7 @@ import { ContactoPage } from "../pages/institucional/ContactoPage";
 import { FuentesPage } from "../pages/institucional/FuentesPage";
 import { MetodologiaPage } from "../pages/institucional/MetodologiaPage";
 import { PrivacidadPage } from "../pages/institucional/PrivacidadPage";
+import { TransparenciaPage } from "../pages/institucional/TransparenciaPage";
 
 export function App() {
   return (
@@ -18,6 +19,7 @@ export function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/calculadoras" element={<CalculatorsIndexPage />} />
         <Route path="/calculadoras/iva" element={<IvaPage />} />
+        <Route path="/transparencia" element={<TransparenciaPage />} />
         <Route path="/metodologia" element={<MetodologiaPage />} />
         <Route path="/fuentes" element={<FuentesPage />} />
         <Route path="/aviso-importante" element={<AvisoImportantePage />} />

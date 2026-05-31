@@ -2,18 +2,14 @@ type CalculatorLayoutProps = {
   title: string;
   description: string;
   category: string;
-  lastReviewedAt: string;
   children: React.ReactNode;
-  aside: React.ReactNode;
 };
 
 export function CalculatorLayout({
   title,
   description,
   category,
-  lastReviewedAt,
-  children,
-  aside
+  children
 }: CalculatorLayoutProps) {
   return (
     <section className="page calculator-page">
@@ -24,12 +20,8 @@ export function CalculatorLayout({
             <h1>{title}</h1>
             <p>{description}</p>
           </div>
-          <p className="review-pill">Revision: {lastReviewedAt}</p>
         </div>
-        <div className="calculator-layout">
-          <div className="calculator-layout__main">{children}</div>
-          <aside className="calculator-layout__aside">{aside}</aside>
-        </div>
+        <div className="calculator-layout">{children}</div>
       </div>
     </section>
   );

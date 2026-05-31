@@ -6,10 +6,12 @@ type SiteLayoutProps = {
 
 const navItems = [
   { to: "/", label: "Inicio" },
-  { to: "/calculadoras", label: "Calculadoras" },
-  { to: "/metodologia", label: "Metodologia" },
-  { to: "/fuentes", label: "Fuentes" },
-  { to: "/aviso-importante", label: "Aviso" }
+  { to: "/calculadoras", label: "Calculadoras" }
+];
+
+const footerLinks = [
+  { to: "/transparencia", label: "Transparencia" },
+  { to: "/contacto", label: "Contacto" }
 ];
 
 export function SiteLayout({ children }: SiteLayoutProps) {
@@ -33,12 +35,15 @@ export function SiteLayout({ children }: SiteLayoutProps) {
       <footer className="site-footer">
         <div className="site-footer__inner">
           <p>
-            Calculadoras utiles y orientativas para Paraguay. No reemplaza
-            fuentes oficiales ni asesoramiento profesional.
+            Resultados orientativos. No reemplazan fuentes oficiales ni
+            asesoramiento profesional.
           </p>
           <div className="site-footer__links">
-            <NavLink to="/privacidad">Privacidad</NavLink>
-            <NavLink to="/contacto">Contacto</NavLink>
+            {footerLinks.map((item) => (
+              <NavLink key={item.to} to={item.to}>
+                {item.label}
+              </NavLink>
+            ))}
           </div>
         </div>
       </footer>

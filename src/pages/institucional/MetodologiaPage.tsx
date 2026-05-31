@@ -16,20 +16,26 @@ export function MetodologiaPage() {
           calcula, de donde salen los datos sensibles y que limites tiene el
           resultado.
         </p>
-        <h2>Criterios de publicacion</h2>
-        <ul>
-          <li>Formula visible y separada del componente visual.</li>
-          <li>Validaciones para evitar montos negativos o datos imposibles.</li>
-          <li>Fuentes citadas cuando respaldan un dato sensible.</li>
-          <li>Fecha de ultima revision visible.</li>
-          <li>Aviso orientativo claro, sin prometer exactitud absoluta.</li>
-        </ul>
-        <h2>Riesgo por calculadora</h2>
-        <p>
-          Las calculadoras de bajo riesgo pueden publicarse antes si sus
-          supuestos son simples y visibles. Las de riesgo medio o alto requieren
-          mayor revision antes de estar disponibles.
-        </p>
+        <div className="content-grid content-grid--two">
+          <section className="content-card">
+            <h2>Criterios de publicacion</h2>
+            <ul>
+              <li>Formula visible y separada del componente visual.</li>
+              <li>Validaciones para evitar montos negativos o datos imposibles.</li>
+              <li>Fuentes citadas cuando respaldan un dato sensible.</li>
+              <li>Fecha de ultima revision visible.</li>
+              <li>Aviso orientativo claro, sin prometer exactitud absoluta.</li>
+            </ul>
+          </section>
+          <section className="content-card">
+            <h2>Riesgo por calculadora</h2>
+            <p>
+              Las calculadoras de bajo riesgo pueden publicarse antes si sus
+              supuestos son simples y visibles. Las de riesgo medio o alto
+              requieren mayor revision antes de estar disponibles.
+            </p>
+          </section>
+        </div>
       </div>
     </section>
   );
