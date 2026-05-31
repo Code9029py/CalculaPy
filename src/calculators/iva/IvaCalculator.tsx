@@ -6,7 +6,6 @@ import { FormulaBox } from "../../components/calculator/FormulaBox";
 import { ResultCard } from "../../components/calculator/ResultCard";
 import { SourceBox } from "../../components/calculator/SourceBox";
 import { ValidationMessage } from "../../components/calculator/ValidationMessage";
-import { globalDisclaimer } from "../../data/legalNotices";
 import { formatCurrency } from "../../utils/formatters";
 import { ivaExamples } from "./examples";
 import { calculateIva } from "./formula";
@@ -20,6 +19,8 @@ import {
 } from "./validators";
 
 const defaultAmount = "100000";
+const ivaDisclaimer =
+  "Resultado orientativo segun los datos ingresados. Verifica fuentes oficiales o asesoramiento profesional antes de tomar decisiones relevantes.";
 
 export function IvaCalculator() {
   const [amountText, setAmountText] = useState(defaultAmount);
@@ -78,19 +79,22 @@ export function IvaCalculator() {
         <div className="calculator-form">
           <div className="field-group">
             <label htmlFor="iva-amount">Monto</label>
-            <input
-              id="iva-amount"
-              inputMode="decimal"
-              placeholder="Ej. 100000"
-              type="text"
-              value={amountText}
-              onChange={(event) => {
-                setAmountText(event.target.value);
-                setCopyState("idle");
-              }}
-              aria-describedby="iva-amount-help iva-amount-error"
-              aria-invalid={Boolean(validationErrors.amount)}
-            />
+            <div className="money-input">
+              <span aria-hidden="true">Gs.</span>
+              <input
+                id="iva-amount"
+                inputMode="decimal"
+                placeholder="100.000"
+                type="text"
+                value={amountText}
+                onChange={(event) => {
+                  setAmountText(event.target.value);
+                  setCopyState("idle");
+                }}
+                aria-describedby="iva-amount-help iva-amount-error"
+                aria-invalid={Boolean(validationErrors.amount)}
+              />
+            </div>
             <p className="field-help" id="iva-amount-help">
               Podes escribir 100000, 100.000 o 100000,50.
             </p>
@@ -227,7 +231,7 @@ export function IvaCalculator() {
           </p>
         </div>
 
-        <DisclaimerBox>{globalDisclaimer}</DisclaimerBox>
+        <DisclaimerBox>{ivaDisclaimer}</DisclaimerBox>
       </div>
     </>
   );

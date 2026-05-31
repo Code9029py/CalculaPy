@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { PageMeta } from "../../components/PageMeta";
 import { sourceRegistry } from "../../data/sourceRegistry";
 
+const activeSources = sourceRegistry.filter((source) => source.name === "DNIT");
+
 export function TransparenciaPage() {
   return (
     <section className="page">
@@ -28,7 +30,7 @@ export function TransparenciaPage() {
               requiere, y fecha de revision dentro de cada herramienta.
             </p>
             <ul className="compact-list">
-              {sourceRegistry.slice(0, 4).map((source) => (
+              {activeSources.map((source) => (
                 <li key={source.name}>
                   {source.url ? (
                     <a href={source.url} rel="noreferrer" target="_blank">

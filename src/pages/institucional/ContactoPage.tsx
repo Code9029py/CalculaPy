@@ -15,9 +15,6 @@ const contactReasons = [
   "Consulta general"
 ];
 
-const mailtoHref =
-  "mailto:?subject=Reporte%20CalculaPy&body=Motivo%3A%20%0ACalculadora%3A%20%0ADatos%20ingresados%3A%20%0AResultado%20obtenido%3A%20%0AResultado%20esperado%3A%20%0AFuente%20sugerida%3A%20";
-
 export function ContactoPage() {
   return (
     <section className="page">
@@ -57,13 +54,11 @@ export function ContactoPage() {
           <div>
             <h2>Canal de contacto</h2>
             <p>
-              Como esta V1 no tiene backend, podes abrir un borrador de correo
-              con los campos sugeridos y enviarlo por el canal que corresponda.
+              Como esta V1 no tiene backend ni correo definitivo, el canal de
+              contacto se configurara antes del lanzamiento publico. Mientras
+              tanto, usa esta lista como guia para preparar el reporte.
             </p>
           </div>
-          <a className="button button--primary" href={mailtoHref}>
-            Abrir borrador
-          </a>
         </section>
       </div>
     </section>

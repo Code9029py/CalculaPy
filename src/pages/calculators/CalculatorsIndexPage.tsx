@@ -8,7 +8,7 @@ const calculatorCapabilities: Record<string, string> = {
 };
 
 const calculatorTags: Record<string, string[]> = {
-  iva: ["IVA 5%", "IVA 10%", "Agregar IVA", "Separar IVA"]
+  iva: ["IVA 5% y 10%", "Agregar o separar IVA"]
 };
 
 const upcomingTools = [
