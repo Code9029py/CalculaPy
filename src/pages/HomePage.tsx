@@ -5,14 +5,17 @@ import { PageMeta } from "../components/PageMeta";
 
 const trustItems = [
   {
+    icon: "fx",
     title: "Formulas visibles",
     text: "Cada herramienta muestra la formula usada para que el numero no salga de una caja negra."
   },
   {
+    icon: "src",
     title: "Fuentes cuando corresponde",
     text: "Cuando un dato depende de una referencia externa, la fuente queda disponible en la calculadora."
   },
   {
+    icon: "i",
     title: "Resultados orientativos",
     text: "Los calculos ayudan a estimar, pero no reemplazan fuentes oficiales ni asesoramiento profesional."
   }
@@ -26,7 +29,7 @@ export function HomePage() {
         description="Herramientas simples y orientativas para calcular numeros utiles en Paraguay."
       />
       <div className="page__content home-stack">
-        <div className="home-hero">
+        <div className="home-hero app-hero">
           <div className="home-hero__copy">
             <p className="eyebrow">Herramientas utiles</p>
             <h1>Calculadoras simples para Paraguay</h1>
@@ -40,6 +43,21 @@ export function HomePage() {
               </Link>
             </div>
           </div>
+          <div className="hero-preview" aria-hidden="true">
+            <div className="hero-preview__bar">
+              <span></span>
+              <span></span>
+            </div>
+            <div className="hero-preview__result">
+              <small>Resultado orientativo</small>
+              <strong>Gs. 110.000</strong>
+            </div>
+            <div className="hero-preview__rows">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
         </div>
 
         <section className="home-section" aria-labelledby="tools-heading">
@@ -47,8 +65,9 @@ export function HomePage() {
             <p className="eyebrow">Disponible ahora</p>
             <h2 id="tools-heading">Herramientas disponibles</h2>
           </div>
-          <article className="tool-card tool-card--available">
+          <article className="tool-card tool-card--available home-tool-card">
             <div>
+              <span className="tool-icon" aria-hidden="true">IVA</span>
               <p className="calculator-card__category">{ivaMetadata.category}</p>
               <h3>{ivaMetadata.title}</h3>
               <p>
@@ -67,12 +86,12 @@ export function HomePage() {
             <p className="eyebrow">Antes de usar los resultados</p>
             <h2>Calcula, revisa y decide con contexto</h2>
           </div>
-          <div className="content-grid content-grid--three">
+          <div className="trust-strip">
             {trustItems.map((item) => (
-              <article className="content-card" key={item.title}>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </article>
+              <div className="trust-strip__item" key={item.title}>
+                <span aria-hidden="true">{item.icon}</span>
+                <strong>{item.title}</strong>
+              </div>
             ))}
           </div>
         </section>

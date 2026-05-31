@@ -35,8 +35,9 @@ export function SiteLayout({ children }: SiteLayoutProps) {
       <footer className="site-footer">
         <div className="site-footer__inner">
           <p>
-            Resultados orientativos. No reemplazan fuentes oficiales ni
-            asesoramiento profesional.
+            <strong>© 2026 CalculaPy.</strong> Resultados orientativos para
+            Paraguay. No reemplazan fuentes oficiales ni asesoramiento
+            profesional.
           </p>
           <div className="site-footer__links">
             {footerLinks.map((item) => (
@@ -47,6 +48,13 @@ export function SiteLayout({ children }: SiteLayoutProps) {
           </div>
         </div>
       </footer>
+      <nav className="mobile-bottom-nav" aria-label="Navegacion movil">
+        {navItems.map((item) => (
+          <NavLink key={item.to} to={item.to}>
+            {item.label}
+          </NavLink>
+        ))}
+      </nav>
     </div>
   );
 }

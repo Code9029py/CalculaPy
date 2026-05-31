@@ -106,46 +106,42 @@ export function IvaCalculator() {
 
           <fieldset className="segmented-field">
             <legend>Operacion</legend>
-            <label>
-              <input
-                checked={mode === "add"}
-                name="iva-mode"
-                type="radio"
-                onChange={() => setMode("add")}
-              />
+            <button
+              aria-pressed={mode === "add"}
+              className="segment-option"
+              type="button"
+              onClick={() => setMode("add")}
+            >
               Agregar IVA
-            </label>
-            <label>
-              <input
-                checked={mode === "included"}
-                name="iva-mode"
-                type="radio"
-                onChange={() => setMode("included")}
-              />
+            </button>
+            <button
+              aria-pressed={mode === "included"}
+              className="segment-option"
+              type="button"
+              onClick={() => setMode("included")}
+            >
               Separar IVA incluido
-            </label>
+            </button>
           </fieldset>
 
           <fieldset className="segmented-field">
             <legend>Tasa</legend>
-            <label>
-              <input
-                checked={rate === 10}
-                name="iva-rate"
-                type="radio"
-                onChange={() => setRate(10)}
-              />
+            <button
+              aria-pressed={rate === 10}
+              className="segment-option"
+              type="button"
+              onClick={() => setRate(10)}
+            >
               10%
-            </label>
-            <label>
-              <input
-                checked={rate === 5}
-                name="iva-rate"
-                type="radio"
-                onChange={() => setRate(5)}
-              />
+            </button>
+            <button
+              aria-pressed={rate === 5}
+              className="segment-option"
+              type="button"
+              onClick={() => setRate(5)}
+            >
               5%
-            </label>
+            </button>
           </fieldset>
 
           <div className="calculator-actions">
@@ -189,7 +185,15 @@ export function IvaCalculator() {
               { label: "Total con IVA", value: formatCurrency(result.grossAmount) }
             ]}
           />
-        ) : null}
+        ) : (
+          <section className="result-card result-card--empty" aria-live="polite">
+            <p className="result-card__label">Resultado</p>
+            <strong className="result-card__value">Gs. 0</strong>
+            <p className="result-card__helper">
+              Ingresa un monto valido para ver el calculo y el desglose.
+            </p>
+          </section>
+        )}
       </div>
 
       <div className="calculator-secondary-grid">

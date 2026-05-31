@@ -15,21 +15,25 @@ const upcomingTools = [
   {
     category: "Finanzas",
     description: "Comparar pago contado contra cuotas y ver el sobrecosto total.",
+    icon: "Gs",
     title: "Cuotas"
   },
   {
     category: "Organizacion",
     description: "Armar una estimacion mensual con ingresos, gastos y margen.",
+    icon: "%",
     title: "Presupuesto"
   },
   {
     category: "Vida diaria",
     description: "Estimar gasto mensual segun distancia, consumo y precio por litro.",
+    icon: "km",
     title: "Combustible"
   },
   {
     category: "Compras",
     description: "Estimar costos de compra internacional con datos configurables.",
+    icon: "imp",
     title: "Importacion"
   }
 ];
@@ -42,7 +46,7 @@ export function CalculatorsIndexPage() {
         description="Catalogo de herramientas de calculo simples y orientativas para Paraguay."
       />
       <div className="page__content">
-        <div className="section-heading">
+        <div className="section-heading app-page-heading">
           <p className="eyebrow">Herramientas</p>
           <h1>Calculadoras</h1>
           <p>
@@ -53,7 +57,11 @@ export function CalculatorsIndexPage() {
 
         <div className="calculator-grid">
           {calculatorRegistry.map((calculator) => (
-            <article className="tool-card" key={calculator.slug}>
+            <article className="tool-card app-tool-card" key={calculator.slug}>
+              <div className="tool-card__top">
+                <span className="tool-icon" aria-hidden="true">IVA</span>
+                <span className="status-pill status-pill--ready">Disponible</span>
+              </div>
               <div>
                 <p className="calculator-card__category">
                   {calculator.category}
@@ -71,8 +79,6 @@ export function CalculatorsIndexPage() {
                   </span>
                 ))}
               </div>
-              <p className="small-note">Incluye formula y aviso orientativo.</p>
-              <span className="status-pill status-pill--ready">Disponible</span>
               <Link
                 className="button button--primary"
                 to={getCalculatorPath(calculator)}
@@ -82,14 +88,17 @@ export function CalculatorsIndexPage() {
             </article>
           ))}
           {upcomingTools.map((tool) => (
-            <article className="tool-card tool-card--soon" key={tool.title}>
+            <article className="tool-card app-tool-card tool-card--soon" key={tool.title}>
+              <div className="tool-card__top">
+                <span className="tool-icon tool-icon--muted" aria-hidden="true">
+                  {tool.icon}
+                </span>
+                <span className="status-pill">Proximamente</span>
+              </div>
               <div>
                 <p className="calculator-card__category">{tool.category}</p>
                 <h2>{tool.title}</h2>
                 <p>{tool.description}</p>
-              </div>
-              <div className="tag-list" aria-label="Estado">
-                <span className="status-pill">Proximamente</span>
               </div>
             </article>
           ))}

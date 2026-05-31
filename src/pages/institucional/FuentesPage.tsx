@@ -6,14 +6,15 @@ export function FuentesPage() {
     <section className="page">
       <PageMeta
         title="Fuentes | CalculaPy"
-        description="Registro de fuentes usadas o previstas por CalculaPy para calculadoras orientativas de Paraguay."
+        description="Registro de fuentes activas usadas por CalculaPy para calculadoras orientativas de Paraguay."
       />
       <div className="page__content prose">
         <p className="eyebrow">Transparencia</p>
         <h1>Fuentes</h1>
         <p>
           CalculaPy separa fuentes oficiales, formulas matematicas generales y
-          datos ingresados por el usuario. La fuente se muestra en cada
+          datos ingresados por el usuario. Esta pagina lista fuentes activas
+          usadas por calculadoras publicadas; la fuente se muestra en cada
           calculadora cuando respalda un dato sensible.
         </p>
         <div className="source-table" role="table" aria-label="Fuentes">

@@ -13,7 +13,7 @@ export function TransparenciaPage() {
         description="Como CalculaPy construye calculadoras, usa fuentes, explica limites y recibe reportes de errores."
       />
       <div className="page__content">
-        <div className="section-heading section-heading--wide">
+        <div className="section-heading section-heading--wide support-heading">
           <p className="eyebrow">Soporte</p>
           <h1>Transparencia</h1>
           <p>
@@ -22,14 +22,17 @@ export function TransparenciaPage() {
           </p>
         </div>
 
-        <div className="content-grid content-grid--three">
-          <section className="content-card">
-            <h2>Fuentes y revision</h2>
-            <p>
-              Las calculadoras muestran fuentes cuando un dato sensible las
-              requiere, y fecha de revision dentro de cada herramienta.
-            </p>
-            <ul className="compact-list">
+        <div className="support-layout">
+          <section className="support-card support-card--wide">
+            <div className="support-card__icon" aria-hidden="true">src</div>
+            <div>
+              <h2>Fuentes y revision</h2>
+              <p>
+                Las calculadoras muestran fuentes cuando un dato sensible las
+                requiere, y fecha de revision dentro de cada herramienta.
+              </p>
+            </div>
+            <ul className="compact-list compact-list--inline">
               {activeSources.map((source) => (
                 <li key={source.name}>
                   {source.url ? (
@@ -44,14 +47,16 @@ export function TransparenciaPage() {
               ))}
             </ul>
           </section>
-          <section className="content-card content-card--notice">
+          <section className="support-card">
+            <div className="support-card__icon" aria-hidden="true">i</div>
             <h2>Limites de uso</h2>
             <p>
               Los resultados son orientativos. Pueden existir cambios, errores o
               casos particulares que modifiquen el resultado final.
             </p>
           </section>
-          <section className="content-card">
+          <section className="support-card support-card--action">
+            <div className="support-card__icon" aria-hidden="true">!</div>
             <h2>Reportar error</h2>
             <p>
               Si una calculadora parece incorrecta o una fuente cambio, envianos
