@@ -22,19 +22,19 @@ export function validateIvaInput(input: IvaInput): IvaValidationErrors {
   const errors: IvaValidationErrors = {};
 
   if (!Number.isFinite(input.amount)) {
-    errors.amount = "Ingresa un monto valido.";
+    errors.amount = "Ingresá un monto válido.";
   } else if (input.amount < 0) {
     errors.amount = "El monto no puede ser negativo.";
   } else if (input.amount === 0) {
-    errors.amount = "Ingresa un monto mayor a cero.";
+    errors.amount = "Ingresá un monto mayor a cero.";
   }
 
   if (!isIvaRate(input.rate)) {
-    errors.rate = "Selecciona una tasa de IVA valida.";
+    errors.rate = "Seleccioná una tasa de IVA válida.";
   }
 
   if (!isIvaMode(input.mode)) {
-    errors.mode = "Selecciona si queres agregar o separar el IVA.";
+    errors.mode = "Seleccioná si querés agregar o separar el IVA.";
   }
 
   return errors;

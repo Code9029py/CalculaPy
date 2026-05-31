@@ -1,13 +1,19 @@
+import type { ReactNode } from "react";
+
+import { NoticeBox } from "../ui/NoticeBox";
+
 type FormulaBoxProps = {
   title?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-export function FormulaBox({ title = "Formula usada", children }: FormulaBoxProps) {
+export function FormulaBox({
+  title = "Fórmula usada",
+  children
+}: FormulaBoxProps) {
   return (
-    <section className="info-box">
-      <h2>{title}</h2>
-      <div className="info-box__content">{children}</div>
-    </section>
+    <NoticeBox tone="formula" title={title}>
+      {children}
+    </NoticeBox>
   );
 }

@@ -1,12 +1,15 @@
+import type { ReactNode } from "react";
+
+import { NoticeBox } from "../ui/NoticeBox";
+
 type DisclaimerBoxProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export function DisclaimerBox({ children }: DisclaimerBoxProps) {
   return (
-    <section className="disclaimer-box">
-      <h2>Aviso orientativo</h2>
-      <p>{children}</p>
-    </section>
+    <NoticeBox tone="warning" title="Aviso orientativo">
+      {children}
+    </NoticeBox>
   );
 }

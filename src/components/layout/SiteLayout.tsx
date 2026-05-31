@@ -10,19 +10,17 @@ const navItems = [
   { to: "/contacto", label: "Contacto" }
 ];
 
-const footerLinks = [{ to: "/transparencia", label: "Transparencia" }];
-
 export function SiteLayout({ children }: SiteLayoutProps) {
   return (
     <div className="site">
       <header className="site-header">
         <div className="site-header__inner">
-          <NavLink className="brand" to="/" aria-label="CalculaPy inicio">
-            CalculaPy
+          <NavLink className="brand" to="/" aria-label="CalcuPY inicio">
+            CalcuPY
           </NavLink>
-          <nav className="site-nav" aria-label="Navegacion principal">
+          <nav className="site-nav" aria-label="Navegación principal">
             {navItems.map((item) => (
-              <NavLink key={item.to} to={item.to}>
+              <NavLink key={item.to} to={item.to} end={item.to === "/"}>
                 {item.label}
               </NavLink>
             ))}
@@ -32,22 +30,18 @@ export function SiteLayout({ children }: SiteLayoutProps) {
       <main>{children}</main>
       <footer className="site-footer">
         <div className="site-footer__inner">
-          <p>
-            <strong>&copy; 2026 CalculaPy.</strong> Resultados orientativos para
+          <p className="site-footer__copy">
+            <strong>&copy; 2026 CalcuPY.</strong> Resultados orientativos para
             Paraguay.
           </p>
-          <div className="site-footer__links">
-            {footerLinks.map((item) => (
-              <NavLink key={item.to} to={item.to}>
-                {item.label}
-              </NavLink>
-            ))}
-          </div>
+          <NavLink className="site-footer__link" to="/transparencia">
+            Transparencia
+          </NavLink>
         </div>
       </footer>
-      <nav className="mobile-bottom-nav" aria-label="Navegacion movil">
+      <nav className="mobile-bottom-nav" aria-label="Navegación móvil">
         {navItems.map((item) => (
-          <NavLink key={item.to} to={item.to}>
+          <NavLink key={item.to} to={item.to} end={item.to === "/"}>
             {item.label}
           </NavLink>
         ))}

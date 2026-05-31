@@ -1,3 +1,5 @@
+import { NoticeBox } from "../ui/NoticeBox";
+
 type SourceItem = {
   name: string;
   description: string;
@@ -11,8 +13,13 @@ type SourceBoxProps = {
 
 export function SourceBox({ sources, lastReviewedAt }: SourceBoxProps) {
   return (
-    <section className="info-box">
-      <h2>Fuentes y revision</h2>
+    <NoticeBox
+      tone="source"
+      title="Fuentes y revisión"
+      footer={
+        <p className="notice__meta">Última revisión: {lastReviewedAt}</p>
+      }
+    >
       <ul className="source-list">
         {sources.map((source) => (
           <li key={source.name}>
@@ -27,7 +34,6 @@ export function SourceBox({ sources, lastReviewedAt }: SourceBoxProps) {
           </li>
         ))}
       </ul>
-      <p className="muted">Ultima revision: {lastReviewedAt}</p>
-    </section>
+    </NoticeBox>
   );
 }

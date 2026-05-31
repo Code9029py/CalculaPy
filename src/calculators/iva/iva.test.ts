@@ -69,6 +69,6 @@ describe("validateIvaInput", () => {
     });
 
     expect(hasValidationErrors(errors)).toBe(true);
-    expect(errors.amount).toBe("Ingresa un monto valido.");
+    expect(errors.amount).toBe("Ingresá un monto válido.");
   });
 });

@@ -1,18 +1,17 @@
-# CalculaPy
+# CalcuPY
 
-Portal de calculadoras utiles y orientativas para Paraguay.
+Portal de calculadoras útiles y orientativas para Paraguay.
 
-La regla madre del proyecto es: util, claro, honesto y verificable. Cada
-calculadora publicada debe mostrar formula, fuentes, fecha de revision y aviso
+La regla madre del proyecto es: útil, claro, honesto y verificable. Cada
+calculadora publicada debe mostrar fórmula, fuentes, fecha de revisión y aviso
 de alcance.
 
 ## Alcance V1
 
 - Frontend React + Vite + TypeScript.
 - Arquitectura modular por calculadora.
-- Paginas institucionales: metodologia, fuentes, aviso importante, privacidad y
-  contacto.
-- Indice `/calculadoras` basado en metadata.
+- Página de contacto con plantilla mailto.
+- Índice `/calculadoras` basado en metadata.
 - Primera calculadora publicada: IVA Paraguay.
 - Sin backend en V1.
 - Sin calculadoras de alto riesgo en esta base inicial.
@@ -49,11 +48,11 @@ src/
 
 ## Criterios por calculadora
 
-- Titulo y descripcion claros.
+- Título y descripción claros.
 - Metadata para listado y SEO.
-- Formula pura separada de la UI.
-- Validaciones explicitas.
+- Fórmula pura separada de la UI.
+- Validaciones explícitas.
 - Resultado principal legible y desglose.
-- Formula, ejemplo, fuentes y fecha de revision visibles.
+- Fórmula, ejemplo, fuentes y fecha de revisión visibles.
 - Aviso orientativo sin prometer exactitud absoluta.
-- Pruebas para casos conocidos y limites relevantes.
+- Pruebas para casos conocidos y límites relevantes.

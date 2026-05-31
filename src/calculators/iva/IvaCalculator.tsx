@@ -1,13 +1,10 @@
+import { Copy, RotateCcw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { DisclaimerBox } from "../../components/calculator/DisclaimerBox";
-import { FormulaBox } from "../../components/calculator/FormulaBox";
 import { ResultCard } from "../../components/calculator/ResultCard";
-import { SourceBox } from "../../components/calculator/SourceBox";
 import { ValidationMessage } from "../../components/calculator/ValidationMessage";
 import { formatCurrency } from "../../utils/formatters";
-import { ivaExamples } from "./examples";
 import { calculateIva } from "./formula";
 import { ivaMetadata } from "./metadata";
 import { ivaSources } from "./sources";
@@ -19,9 +16,6 @@ import {
 } from "./validators";
 
 const defaultAmount = "100000";
-const ivaDisclaimer =
-  "Resultado orientativo segun los datos ingresados. Verifica fuentes oficiales o asesoramiento profesional antes de tomar decisiones relevantes.";
-
 export function IvaCalculator() {
   const [amountText, setAmountText] = useState(defaultAmount);
   const [rate, setRate] = useState<IvaRate>(10);
@@ -73,10 +67,17 @@ export function IvaCalculator() {
     }
   }
 
+  const formulaText =
+    mode === "add"
+      ? "IVA = neto × tasa · Total = neto + IVA"
+      : "Neto = total / (1 + tasa) · IVA = total - neto";
+  const formulaNote = mode === "included" ? "total = monto con IVA" : null;
+  const formulaLabel = `Fórmula aplicada: ${formulaText}`;
+
   return (
-    <>
-      <div className="calculator-primary-grid">
-        <div className="calculator-form">
+    <div className="calculator-shell">
+      <div className="calculator-main-grid">
+        <div className="calculator-form calculator-panel">
           <div className="field-group">
             <label htmlFor="iva-amount">Monto</label>
             <div className="money-input">
@@ -96,7 +97,7 @@ export function IvaCalculator() {
               />
             </div>
             <p className="field-help" id="iva-amount-help">
-              Podes escribir 100000, 100.000 o 100000,50.
+              Podés escribir 100000, 100.000 o 100000,50.
             </p>
             <ValidationMessage
               id="iva-amount-error"
@@ -105,7 +106,7 @@ export function IvaCalculator() {
           </div>
 
           <fieldset className="segmented-field">
-            <legend>Operacion</legend>
+            <legend>Operación</legend>
             <button
               aria-pressed={mode === "add"}
               className="segment-option"
@@ -144,14 +145,17 @@ export function IvaCalculator() {
             </button>
           </fieldset>
 
-          <div className="calculator-actions">
-            <button
-              className="button button--secondary"
-              type="button"
-              onClick={handleClear}
-            >
-              Limpiar
-            </button>
+          <div className="calculator-form-footer">
+            <div className="calculator-actions">
+              <button
+                className="button button--ghost"
+                type="button"
+                onClick={handleClear}
+              >
+                <RotateCcw size={16} aria-hidden="true" />
+                Limpiar
+              </button>
+            </div>
           </div>
         </div>
 
@@ -164,6 +168,7 @@ export function IvaCalculator() {
                   type="button"
                   onClick={handleCopy}
                 >
+                  <Copy size={16} aria-hidden="true" />
                   Copiar resultado
                 </button>
                 {copyState === "copied" ? (
@@ -171,72 +176,92 @@ export function IvaCalculator() {
                 ) : null}
                 {copyState === "failed" ? (
                   <span className="field-error">
-                    No se pudo copiar automaticamente.
+                    No se pudo copiar automáticamente.
                   </span>
                 ) : null}
+                <p className="result-card__formula">
+                  {formulaLabel}
+                  {formulaNote ? <span>{formulaNote}</span> : null}
+                </p>
               </>
             }
             title={resultLabel}
             result={formatCurrency(resultValue)}
-            helper="Resultado orientativo segun los datos ingresados."
+            helper="Resultado orientativo según los datos ingresados."
             rows={[
               { label: "Monto neto", value: formatCurrency(result.netAmount) },
-              { label: `IVA ${result.rate}%`, value: formatCurrency(result.ivaAmount) },
-              { label: "Total con IVA", value: formatCurrency(result.grossAmount) }
+              {
+                label: `IVA ${result.rate}%`,
+                value: formatCurrency(result.ivaAmount)
+              },
+              {
+                label: "Total con IVA",
+                value: formatCurrency(result.grossAmount)
+              }
             ]}
           />
         ) : (
-          <section className="result-card result-card--empty" aria-live="polite">
+          <section
+            className="result-card result-card--empty"
+            aria-live="polite"
+          >
             <p className="result-card__label">Resultado</p>
-            <strong className="result-card__value">Gs. 0</strong>
-            <p className="result-card__helper">
-              Ingresa un monto valido para ver el calculo y el desglose.
+            <p className="result-card__placeholder">
+              Cargá un monto para ver el cálculo.
             </p>
           </section>
         )}
       </div>
 
-      <div className="calculator-secondary-grid">
-        <FormulaBox>
-          {mode === "add" ? (
-            <p>
-              IVA = monto neto x tasa. Total con IVA = monto neto + IVA.
-            </p>
-          ) : (
-            <p>
-              Monto neto = monto con IVA / (1 + tasa). IVA = monto con IVA -
-              monto neto.
-            </p>
-          )}
-        </FormulaBox>
-
-        <section className="info-box">
-          <h2>Ejemplo rapido</h2>
-          <div className="example-list">
-            {ivaExamples.map((example) => (
-              <article key={example.title}>
-                <h3>{example.title}</h3>
-                <p>{example.input}</p>
-                <strong>{example.output}</strong>
-              </article>
-            ))}
+      <div className="calculator-support">
+        <details className="calculator-details">
+          <summary>Ver ejemplo</summary>
+          <div className="calculator-details__body">
+            <ul className="calculator-example-lines">
+              <li>
+                <strong>Agregar IVA 10%:</strong> 100.000 → Total 110.000 · IVA
+                10.000
+              </li>
+              <li>
+                <strong>Separar IVA 5%:</strong> 105.000 → Neto 100.000 · IVA
+                5.000
+              </li>
+            </ul>
           </div>
-        </section>
+        </details>
 
-        <div>
-          <SourceBox
-            sources={ivaSources}
-            lastReviewedAt={ivaMetadata.lastReviewedAt}
-          />
-          <p className="report-note">
-            <Link className="inline-link" to="/contacto">
-              Reportar un error
-            </Link>
-          </p>
-        </div>
+        <details className="calculator-details">
+          <summary>Fuente utilizada</summary>
+          <div className="calculator-details__body">
+            <ul className="calculator-source-list">
+              {ivaSources.map((source) => (
+                <li key={source.name}>
+                  {source.url ? (
+                    <a href={source.url} rel="noreferrer" target="_blank">
+                      {source.name}
+                    </a>
+                  ) : (
+                    <strong>{source.name}</strong>
+                  )}
+                  <span> — {source.description}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="calculator-details__meta">
+              Verificado: {ivaMetadata.lastReviewedAt}
+            </p>
+          </div>
+        </details>
 
-        <DisclaimerBox>{ivaDisclaimer}</DisclaimerBox>
+        <p className="calculator-disclaimer-note">
+          Resultado orientativo. Verificá fuentes oficiales antes de tomar
+          decisiones relevantes.{" "}
+          <Link className="inline-link" to="/contacto">
+            Reportar error
+          </Link>
+          .
+        </p>
       </div>
-    </>
+    </div>
   );
 }

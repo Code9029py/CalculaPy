@@ -6,12 +6,12 @@ export function NotFoundPage() {
   return (
     <section className="page">
       <PageMeta
-        title="Pagina no encontrada | CalculaPy"
-        description="La pagina solicitada no existe en CalculaPy."
+        title="Página no encontrada | CalcuPY"
+        description="La página solicitada no existe en CalcuPY."
       />
       <div className="page__content prose">
-        <h1>Pagina no encontrada</h1>
-        <p>La direccion puede estar incompleta o haber cambiado.</p>
+        <h1>Página no encontrada</h1>
+        <p>La dirección puede estar incompleta o haber cambiado.</p>
         <Link className="button button--primary" to="/">
           Volver al inicio
         </Link>
