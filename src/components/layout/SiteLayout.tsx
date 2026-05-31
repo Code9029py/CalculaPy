@@ -6,13 +6,11 @@ type SiteLayoutProps = {
 
 const navItems = [
   { to: "/", label: "Inicio" },
-  { to: "/calculadoras", label: "Calculadoras" }
-];
-
-const footerLinks = [
-  { to: "/transparencia", label: "Transparencia" },
+  { to: "/calculadoras", label: "Calculadoras" },
   { to: "/contacto", label: "Contacto" }
 ];
+
+const footerLinks = [{ to: "/transparencia", label: "Transparencia" }];
 
 export function SiteLayout({ children }: SiteLayoutProps) {
   return (
@@ -35,9 +33,8 @@ export function SiteLayout({ children }: SiteLayoutProps) {
       <footer className="site-footer">
         <div className="site-footer__inner">
           <p>
-            <strong>© 2026 CalculaPy.</strong> Resultados orientativos para
-            Paraguay. No reemplazan fuentes oficiales ni asesoramiento
-            profesional.
+            <strong>&copy; 2026 CalculaPy.</strong> Resultados orientativos para
+            Paraguay.
           </p>
           <div className="site-footer__links">
             {footerLinks.map((item) => (

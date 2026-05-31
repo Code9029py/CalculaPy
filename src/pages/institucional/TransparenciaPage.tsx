@@ -13,17 +13,19 @@ export function TransparenciaPage() {
         description="Como CalculaPy construye calculadoras, usa fuentes, explica limites y recibe reportes de errores."
       />
       <div className="page__content">
-        <div className="section-heading section-heading--wide support-heading">
-          <p className="eyebrow">Soporte</p>
-          <h1>Transparencia</h1>
-          <p>
-            Informacion breve sobre fuentes, limites y reportes. La idea es que
-            puedas calcular rapido y revisar el respaldo cuando lo necesites.
-          </p>
+        <div className="catalog-heading app-page-heading support-page-heading">
+          <div>
+            <p className="eyebrow">Soporte informativo</p>
+            <h1>Transparencia</h1>
+            <p>
+              Fuentes, limites y reportes para entender el alcance de las
+              calculadoras.
+            </p>
+          </div>
         </div>
 
-        <div className="support-layout">
-          <section className="support-card support-card--wide">
+        <div className="transparency-layout">
+          <section className="support-card support-card--source">
             <div className="support-card__icon" aria-hidden="true">src</div>
             <div>
               <h2>Fuentes y revision</h2>
@@ -42,30 +44,32 @@ export function TransparenciaPage() {
                   ) : (
                     source.name
                   )}
-                  <span>{source.scope}</span>
+                  <span>IVA Paraguay</span>
                 </li>
               ))}
             </ul>
           </section>
-          <section className="support-card">
-            <div className="support-card__icon" aria-hidden="true">i</div>
-            <h2>Limites de uso</h2>
-            <p>
-              Los resultados son orientativos. Pueden existir cambios, errores o
-              casos particulares que modifiquen el resultado final.
-            </p>
-          </section>
-          <section className="support-card support-card--action">
-            <div className="support-card__icon" aria-hidden="true">!</div>
-            <h2>Reportar error</h2>
-            <p>
-              Si una calculadora parece incorrecta o una fuente cambio, envianos
-              la calculadora, los datos usados y el resultado esperado.
-            </p>
-            <Link className="button button--primary" to="/contacto">
-              Reportar error
-            </Link>
-          </section>
+          <div className="support-stack">
+            <section className="support-card">
+              <div className="support-card__icon" aria-hidden="true">i</div>
+              <h2>Limites de uso</h2>
+              <p>
+                Los resultados son orientativos. Pueden existir cambios, errores
+                o casos particulares que modifiquen el resultado final.
+              </p>
+            </section>
+            <section className="support-card support-card--notice">
+              <div className="support-card__icon" aria-hidden="true">rep</div>
+              <h2>Correcciones y reportes</h2>
+              <p>
+                Si una calculadora parece incorrecta, prepara el caso en la
+                pagina de contacto.
+              </p>
+              <Link className="inline-link support-link" to="/contacto">
+                Ir a contacto
+              </Link>
+            </section>
+          </div>
         </div>
       </div>
     </section>

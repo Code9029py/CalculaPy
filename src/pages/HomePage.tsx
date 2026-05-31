@@ -6,19 +6,22 @@ import { PageMeta } from "../components/PageMeta";
 const trustItems = [
   {
     icon: "fx",
-    title: "Formulas visibles",
-    text: "Cada herramienta muestra la formula usada para que el numero no salga de una caja negra."
+    title: "Formulas claras"
   },
   {
     icon: "src",
-    title: "Fuentes cuando corresponde",
-    text: "Cuando un dato depende de una referencia externa, la fuente queda disponible en la calculadora."
+    title: "Fuentes cuando corresponde"
   },
   {
     icon: "i",
-    title: "Resultados orientativos",
-    text: "Los calculos ayudan a estimar, pero no reemplazan fuentes oficiales ni asesoramiento profesional."
+    title: "Resultados orientativos"
   }
+];
+
+const usageSteps = [
+  "Elegi una calculadora.",
+  "Carga tus datos.",
+  "Revisa el resultado y el desglose."
 ];
 
 export function HomePage() {
@@ -60,32 +63,51 @@ export function HomePage() {
           </div>
         </div>
 
-        <section className="home-section" aria-labelledby="tools-heading">
-          <div className="section-heading">
-            <p className="eyebrow">Disponible ahora</p>
-            <h2 id="tools-heading">Herramientas disponibles</h2>
+        <section
+          className="home-section home-section--compact"
+          data-section-role="quick-access"
+          aria-labelledby="tools-heading"
+        >
+          <div className="section-heading section-heading--compact">
+            <h2 id="tools-heading">Acceso rapido</h2>
           </div>
-          <article className="tool-card tool-card--available home-tool-card">
-            <div>
+          <div className="quick-access-grid" aria-label="Herramientas disponibles">
+            <article className="tool-card tool-card--available quick-tool-card">
               <span className="tool-icon" aria-hidden="true">IVA</span>
-              <p className="calculator-card__category">{ivaMetadata.category}</p>
-              <h3>{ivaMetadata.title}</h3>
-              <p>
-                Agrega IVA a un monto neto o separa el IVA de un precio final
-                con tasas 5% y 10%.
-              </p>
-            </div>
-            <Link className="button button--primary" to="/calculadoras/iva">
-              Abrir calculadora
-            </Link>
-          </article>
+              <div className="quick-tool-card__body">
+                <p className="calculator-card__category">
+                  {ivaMetadata.category}
+                </p>
+                <h3>{ivaMetadata.title}</h3>
+                <p>
+                  Agrega o separa IVA con tasas 5% y 10%.
+                </p>
+              </div>
+              <Link
+                className="button button--primary button--compact"
+                to="/calculadoras/iva"
+              >
+                Abrir
+              </Link>
+            </article>
+          </div>
         </section>
 
-        <section className="home-section">
-          <div className="section-heading">
-            <p className="eyebrow">Antes de usar los resultados</p>
-            <h2>Calcula, revisa y decide con contexto</h2>
+        <section className="home-section home-section--steps" aria-labelledby="how-heading">
+          <div className="section-heading section-heading--compact">
+            <h2 id="how-heading">Como usar CalculaPy</h2>
           </div>
+          <div className="steps-strip">
+            {usageSteps.map((step, index) => (
+              <article className="step-card" key={step}>
+                <span aria-hidden="true">{index + 1}</span>
+                <p>{step}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="home-section home-section--trust">
           <div className="trust-strip">
             {trustItems.map((item) => (
               <div className="trust-strip__item" key={item.title}>
