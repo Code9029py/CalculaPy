@@ -1,4 +1,4 @@
-import { Fuel, Percent, ShoppingBag } from "lucide-react";
+import { Fuel, ShoppingBag } from "lucide-react";
 import type { ComponentType } from "react";
 import type { LucideProps } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -17,12 +17,6 @@ type UpcomingTool = {
 };
 
 const upcomingTools: UpcomingTool[] = [
-  {
-    category: "Organización",
-    description: "Armar una estimación mensual con ingresos, gastos y margen.",
-    Icon: Percent,
-    title: "Presupuesto"
-  },
   {
     category: "Vida diaria",
     description: "Estimar gasto mensual según distancia, consumo y precio por litro.",

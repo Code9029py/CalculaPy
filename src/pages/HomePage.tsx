@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import { cuotasMetadata } from "../calculators/cuotas/metadata";
 import { ivaMetadata } from "../calculators/iva/metadata";
+import { presupuestoMetadata } from "../calculators/presupuesto/metadata";
 import { PageMeta } from "../components/PageMeta";
 
 const usageSteps = [
@@ -12,6 +13,7 @@ const usageSteps = [
 
 export function HomePage() {
   const CuotasIcon = cuotasMetadata.icon;
+  const PresupuestoIcon = presupuestoMetadata.icon;
 
   return (
     <section className="page page--home">
@@ -89,6 +91,24 @@ export function HomePage() {
               <Link
                 className="button button--primary button--compact"
                 to="/calculadoras/cuotas"
+              >
+                Abrir
+              </Link>
+            </article>
+            <article className="tool-card tool-card--available quick-tool-card">
+              <span className="tool-icon" aria-hidden="true">
+                <PresupuestoIcon size={18} />
+              </span>
+              <div className="quick-tool-card__body">
+                <p className="calculator-card__category">
+                  {presupuestoMetadata.category}
+                </p>
+                <h3>{presupuestoMetadata.title}</h3>
+                <p>Estimá ingresos, gastos y saldo.</p>
+              </div>
+              <Link
+                className="button button--primary button--compact"
+                to="/calculadoras/presupuesto"
               >
                 Abrir
               </Link>
