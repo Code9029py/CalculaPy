@@ -40,12 +40,14 @@ const transparencyItems: TransparencyItem[] = [
   }
 ];
 
+const currentSources = ["DNIT — IVA Paraguay"];
+
 export function TransparenciaPage() {
   return (
     <section className="page">
       <PageMeta
-        title="Transparencia | CalcuPY"
-        description="Fuentes, límites y reportes para entender el alcance de las calculadoras de CalcuPY."
+        title="Transparencia | CalculaPy"
+        description="Fuentes, límites y reportes para entender el alcance de las calculadoras de CalculaPy."
       />
       <div className="page__content">
         <div className="transparency-hero">
@@ -75,6 +77,15 @@ export function TransparenciaPage() {
             </article>
           ))}
         </div>
+
+        <section className="transparency-sources" aria-labelledby="current-sources-heading">
+          <h2 id="current-sources-heading">Fuentes usadas actualmente</h2>
+          <ul className="transparency-source-list">
+            {currentSources.map((source) => (
+              <li key={source}>{source}</li>
+            ))}
+          </ul>
+        </section>
       </div>
     </section>
   );

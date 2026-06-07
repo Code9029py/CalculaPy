@@ -47,7 +47,7 @@ export function CalculatorsIndexPage() {
   return (
     <section className="page">
       <PageMeta
-        title="Calculadoras para Paraguay | CalcuPY"
+        title="Calculadoras para Paraguay | CalculaPy"
         description="Catálogo de herramientas de cálculo simples y orientativas para Paraguay."
       />
       <div className="page__content">

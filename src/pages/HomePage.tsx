@@ -5,7 +5,7 @@ import { PageMeta } from "../components/PageMeta";
 
 const usageSteps = [
   "Elegí una calculadora.",
-  "Cargá tus datos.",
+  "Cargá los datos.",
   "Revisá el resultado y el desglose."
 ];
 
@@ -13,7 +13,7 @@ export function HomePage() {
   return (
     <section className="page page--home">
       <PageMeta
-        title="CalcuPY | Calculadoras simples para Paraguay"
+        title="CalculaPy | Calculadoras simples para Paraguay"
         description="Herramientas simples y orientativas para calcular números útiles en Paraguay."
       />
       <div className="page__content home-stack">
@@ -80,7 +80,7 @@ export function HomePage() {
           aria-labelledby="how-heading"
         >
           <div className="section-heading section-heading--compact">
-            <h2 id="how-heading">Cómo usar CalcuPY</h2>
+            <h2 id="how-heading">Cómo usar CalculaPy</h2>
           </div>
           <div className="steps-strip">
             {usageSteps.map((step, index) => (

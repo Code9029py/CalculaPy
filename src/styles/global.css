@@ -1,5 +1,5 @@
 /* =========================================================================
-   CalcuPY · Hoja de estilos base
+   CalculaPy · Hoja de estilos base
    Estructura:
      1. Tokens                 (:root)
      2. Reset / base
@@ -13,7 +13,7 @@
     10. Home (hero, steps)
     11. Estado / pills / tags
     12. Contacto / Transparencia
-    13. Bottom nav mobile
+    13. Responsive
     14. Responsive
    ========================================================================= */
 
@@ -413,6 +413,10 @@ main {
 }
 
 .site-footer__copy {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
   margin: 0;
 }
 
@@ -496,7 +500,6 @@ main {
 .button:focus-visible,
 .site-nav a:focus-visible,
 .site-footer__link:focus-visible,
-.mobile-bottom-nav a:focus-visible,
 .segment-option:focus-visible,
 .contact-tab:focus-visible {
   outline: var(--focus-ring);
@@ -1507,6 +1510,37 @@ main {
   width: fit-content;
 }
 
+.transparency-sources {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-4);
+}
+
+.transparency-sources h2 {
+  font-size: 1.08rem;
+  margin: 0 0 var(--space-3);
+}
+
+.transparency-source-list {
+  display: grid;
+  gap: var(--space-2) var(--space-4);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.transparency-source-list li {
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-weight: var(--weight-bold);
+  padding: var(--space-2) var(--space-3);
+}
+
 .contact-hero {
   background:
     linear-gradient(135deg, #ffffff 0%, #ffffff 60%, #eef7e8 100%);
@@ -1602,18 +1636,13 @@ main {
   min-width: 132px;
 }
 
-/* -- 13. Bottom nav mobile (oculta en desktop) ------------------------- */
-
-.mobile-bottom-nav {
-  display: none;
-}
-
-/* -- 14. Responsive ---------------------------------------------------- */
+/* -- 13. Responsive ---------------------------------------------------- */
 
 @media (max-width: 920px) {
   .home-hero.app-hero,
   .calculator-main-grid,
   .transparency-grid,
+  .transparency-source-list,
   .contact-form__grid {
     grid-template-columns: 1fr;
   }
@@ -1648,10 +1677,6 @@ main {
 }
 
 @media (max-width: 720px) {
-  body {
-    padding-bottom: 78px;
-  }
-
   h1,
   .page--home h1 {
     font-size: 2.2rem;
@@ -1672,6 +1697,13 @@ main {
   .site-footer__inner {
     align-items: flex-start;
     flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .site-footer__copy {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0;
   }
 
   .home-hero.app-hero {
@@ -1742,36 +1774,6 @@ main {
     width: 100%;
   }
 
-  .mobile-bottom-nav {
-    background: rgba(255, 255, 255, 0.94);
-    border: 1px solid rgba(197, 213, 202, 0.88);
-    border-radius: var(--radius-md);
-    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-    box-shadow: 0 16px 34px rgba(12, 51, 38, 0.16);
-    display: grid;
-    gap: var(--space-1);
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    left: 16px;
-    padding: var(--space-1);
-    position: fixed;
-    right: 16px;
-    z-index: 20;
-  }
-
-  .mobile-bottom-nav a {
-    border-radius: var(--radius-sm);
-    color: #33453b;
-    font-size: 0.88rem;
-    font-weight: var(--weight-strong);
-    padding: var(--space-2) var(--space-1);
-    text-align: center;
-    text-decoration: none;
-  }
-
-  .mobile-bottom-nav a.active {
-    background: #123d2f;
-    color: var(--color-text-inverse);
-  }
 }
 
 @media (max-width: 520px) {

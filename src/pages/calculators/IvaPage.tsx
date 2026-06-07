@@ -10,7 +10,7 @@ export function IvaPage() {
   return (
     <>
       <PageMeta
-        title={`${ivaMetadata.title} | CalcuPY`}
+        title={`${ivaMetadata.title} | CalculaPy`}
         description={ivaPageDescription}
       />
       <CalculatorLayout

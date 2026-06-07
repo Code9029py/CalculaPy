@@ -1,8 +1,6 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import { PageMeta } from "../../components/PageMeta";
-
-const CONTACT_EMAIL = "contacto@calcupy.com";
 
 type ContactType = "error" | "calculator" | "general";
 
@@ -18,17 +16,11 @@ const contactOptions: Array<{ id: ContactType; label: string }> = [
   { id: "general", label: "Consulta general" }
 ];
 
-const subjectsByType: Record<ContactType, string> = {
-  error: "Error en una calculadora",
-  calculator: "Sugerencia para CalcuPY",
-  general: "Consulta general sobre CalcuPY"
-};
-
 const fieldsByType: Record<ContactType, ContactField[]> = {
   error: [
     {
       label: "Calculadora relacionada",
-      placeholder: "Ejemplo: Calculadora de IVA Paraguay",
+      placeholder: "Ejemplo: Calculadora de IVA",
       type: "input"
     },
     {
@@ -36,21 +28,17 @@ const fieldsByType: Record<ContactType, ContactField[]> = {
       placeholder: "Monto, tasa, operación u otros datos relevantes"
     },
     {
-      label: "Resultado obtenido",
-      placeholder: "Resultado que mostró CalcuPY"
-    },
-    {
-      label: "Resultado esperado",
-      placeholder: "Resultado que esperabas ver"
+      label: "Resultado mostrado y resultado esperado",
+      placeholder: "Contanos qué mostró la calculadora y qué esperabas ver"
     },
     {
       label: "Mensaje adicional",
-      placeholder: "Contexto adicional para entender el caso"
+      placeholder: "Contexto adicional, fuente o enlace si corresponde"
     }
   ],
   calculator: [
     {
-      label: "Nombre o idea de calculadora",
+      label: "Nombre o idea",
       placeholder: "Ejemplo: calculadora de cuotas",
       type: "input"
     },
@@ -59,8 +47,8 @@ const fieldsByType: Record<ContactType, ContactField[]> = {
       placeholder: "Describí el resultado esperado"
     },
     {
-      label: "Por qué sería útil",
-      placeholder: "Explicá el valor para usuarios en Paraguay"
+      label: "Caso de uso o utilidad",
+      placeholder: "Explicá cuándo serviría y qué fuente o enlace revisar si aplica"
     }
   ],
   general: [
@@ -76,27 +64,6 @@ const fieldsByType: Record<ContactType, ContactField[]> = {
   ]
 };
 
-function buildMailto(type: ContactType, values: Record<string, string>) {
-  const subject = subjectsByType[type];
-  const lines: string[] = [];
-
-  for (const field of fieldsByType[type]) {
-    const value = values[field.label]?.trim() ?? "";
-    lines.push(`${field.label}:`);
-    lines.push(value.length > 0 ? value : "—");
-    lines.push("");
-  }
-
-  lines.push("—");
-  lines.push("Enviado desde CalcuPY (plantilla de contacto).");
-
-  const body = lines.join("\n");
-
-  return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-    subject
-  )}&body=${encodeURIComponent(body)}`;
-}
-
 export function ContactoPage() {
   const [contactType, setContactType] = useState<ContactType>("error");
   const [valuesByType, setValuesByType] = useState<
@@ -105,11 +72,6 @@ export function ContactoPage() {
 
   const activeFields = fieldsByType[contactType];
   const currentValues = valuesByType[contactType];
-
-  const mailtoHref = useMemo(
-    () => buildMailto(contactType, currentValues),
-    [contactType, currentValues]
-  );
 
   function updateField(label: string, value: string) {
     setValuesByType((previous) => ({
@@ -124,8 +86,8 @@ export function ContactoPage() {
   return (
     <section className="page">
       <PageMeta
-        title="Contacto y reportes | CalcuPY"
-        description="Canal de contacto y reporte de errores para CalcuPY."
+        title="Contacto y reportes | CalculaPy"
+        description="Canal de contacto y reporte de errores para CalculaPy."
       />
       <div className="page__content">
         <div className="contact-hero">
@@ -137,7 +99,8 @@ export function ContactoPage() {
               general.
             </p>
             <p className="contact-hero__description">
-              Completá los datos y prepará el envío desde tu correo.
+              Completá los datos para preparar el reporte cuando el envío esté
+              disponible.
             </p>
           </div>
         </div>
@@ -194,9 +157,9 @@ export function ContactoPage() {
           </div>
 
           <div className="contact-form__actions">
-            <a className="button button--primary" href={mailtoHref}>
-              Enviar
-            </a>
+            <button className="button button--primary" disabled type="button">
+              Envío no disponible
+            </button>
           </div>
         </form>
       </div>

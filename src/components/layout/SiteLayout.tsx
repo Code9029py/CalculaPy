@@ -15,8 +15,8 @@ export function SiteLayout({ children }: SiteLayoutProps) {
     <div className="site">
       <header className="site-header">
         <div className="site-header__inner">
-          <NavLink className="brand" to="/" aria-label="CalcuPY inicio">
-            CalcuPY
+          <NavLink className="brand" to="/" aria-label="CalculaPy inicio">
+            CalculaPy
           </NavLink>
           <nav className="site-nav" aria-label="Navegación principal">
             {navItems.map((item) => (
@@ -31,21 +31,14 @@ export function SiteLayout({ children }: SiteLayoutProps) {
       <footer className="site-footer">
         <div className="site-footer__inner">
           <p className="site-footer__copy">
-            <strong>&copy; 2026 CalcuPY.</strong> Resultados orientativos para
-            Paraguay.
+            <strong>&copy; 2026 CalculaPy.</strong>
+            <span>Resultados orientativos para tus cálculos cotidianos.</span>
           </p>
           <NavLink className="site-footer__link" to="/transparencia">
             Transparencia
           </NavLink>
         </div>
       </footer>
-      <nav className="mobile-bottom-nav" aria-label="Navegación móvil">
-        {navItems.map((item) => (
-          <NavLink key={item.to} to={item.to} end={item.to === "/"}>
-            {item.label}
-          </NavLink>
-        ))}
-      </nav>
     </div>
   );
 }
