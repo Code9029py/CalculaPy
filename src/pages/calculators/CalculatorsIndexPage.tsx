@@ -1,4 +1,4 @@
-import { Fuel, Percent, ShoppingBag, Wallet } from "lucide-react";
+import { Fuel, Percent, ShoppingBag } from "lucide-react";
 import type { ComponentType } from "react";
 import type { LucideProps } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -17,12 +17,6 @@ type UpcomingTool = {
 };
 
 const upcomingTools: UpcomingTool[] = [
-  {
-    category: "Finanzas",
-    description: "Comparar pago contado contra cuotas y ver el sobrecosto total.",
-    Icon: Wallet,
-    title: "Cuotas"
-  },
   {
     category: "Organización",
     description: "Armar una estimación mensual con ingresos, gastos y margen.",

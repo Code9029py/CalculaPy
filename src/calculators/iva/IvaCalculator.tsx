@@ -2,6 +2,10 @@ import { Copy, RotateCcw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
+import {
+  CalculatorSupportGrid,
+  CalculatorSupportNote
+} from "../../components/calculator/CalculatorSupportGrid";
 import { ResultCard } from "../../components/calculator/ResultCard";
 import { ValidationMessage } from "../../components/calculator/ValidationMessage";
 import { formatCurrency } from "../../utils/formatters";
@@ -28,6 +32,15 @@ export function IvaCalculator() {
   const validationErrors = validateIvaInput({ amount, rate, mode });
   const canCalculate = !hasValidationErrors(validationErrors);
   const result = canCalculate ? calculateIva({ amount, rate, mode }) : null;
+  const displayResult =
+    result ??
+    ({
+      netAmount: 0,
+      ivaAmount: 0,
+      grossAmount: 0,
+      rate,
+      mode
+    } as const);
 
   const resultLabel =
     mode === "add" ? "Total con IVA" : "Monto neto sin IVA";
@@ -159,61 +172,53 @@ export function IvaCalculator() {
           </div>
         </div>
 
-        {result ? (
-          <ResultCard
-            actions={
-              <>
-                <button
-                  className="button button--primary"
-                  type="button"
-                  onClick={handleCopy}
-                >
-                  <Copy size={16} aria-hidden="true" />
-                  Copiar resultado
-                </button>
-                {copyState === "copied" ? (
-                  <span className="action-feedback">Resultado copiado.</span>
-                ) : null}
-                {copyState === "failed" ? (
-                  <span className="field-error">
-                    No se pudo copiar automáticamente.
-                  </span>
-                ) : null}
-                <p className="result-card__formula">
-                  {formulaLabel}
-                  {formulaNote ? <span>{formulaNote}</span> : null}
-                </p>
-              </>
+        <ResultCard
+          actions={
+            <>
+              <button
+                className="button button--primary"
+                type="button"
+                onClick={handleCopy}
+                disabled={!result}
+              >
+                <Copy size={16} aria-hidden="true" />
+                Copiar resultado
+              </button>
+              {copyState === "copied" ? (
+                <span className="action-feedback">Resultado copiado.</span>
+              ) : null}
+              {copyState === "failed" ? (
+                <span className="field-error">
+                  No se pudo copiar automáticamente.
+                </span>
+              ) : null}
+              <p className="result-card__formula">
+                {formulaLabel}
+                {formulaNote ? <span>{formulaNote}</span> : null}
+              </p>
+            </>
+          }
+          title={resultLabel}
+          result={formatCurrency(resultValue)}
+          helper="Resultado orientativo según los datos ingresados."
+          rows={[
+            {
+              label: "Monto neto",
+              value: formatCurrency(displayResult.netAmount)
+            },
+            {
+              label: `IVA ${displayResult.rate}%`,
+              value: formatCurrency(displayResult.ivaAmount)
+            },
+            {
+              label: "Total con IVA",
+              value: formatCurrency(displayResult.grossAmount)
             }
-            title={resultLabel}
-            result={formatCurrency(resultValue)}
-            helper="Resultado orientativo según los datos ingresados."
-            rows={[
-              { label: "Monto neto", value: formatCurrency(result.netAmount) },
-              {
-                label: `IVA ${result.rate}%`,
-                value: formatCurrency(result.ivaAmount)
-              },
-              {
-                label: "Total con IVA",
-                value: formatCurrency(result.grossAmount)
-              }
-            ]}
-          />
-        ) : (
-          <section
-            className="result-card result-card--empty"
-            aria-live="polite"
-          >
-            <p className="result-card__label">Resultado</p>
-            <p className="result-card__placeholder">
-              Cargá un monto para ver el cálculo.
-            </p>
-          </section>
-        )}
+          ]}
+        />
       </div>
 
-      <div className="calculator-support">
+      <CalculatorSupportGrid>
         <details className="calculator-details">
           <summary>Ver ejemplo</summary>
           <div className="calculator-details__body">
@@ -253,15 +258,17 @@ export function IvaCalculator() {
           </div>
         </details>
 
-        <p className="calculator-disclaimer-note">
-          Resultado orientativo. Verificá fuentes oficiales antes de tomar
-          decisiones relevantes.{" "}
-          <Link className="inline-link" to="/contacto">
-            Reportar error
-          </Link>
-          .
-        </p>
-      </div>
+        <CalculatorSupportNote>
+          <p className="calculator-disclaimer-note">
+            Resultado orientativo. Verificá fuentes oficiales antes de tomar
+            decisiones relevantes.{" "}
+            <Link className="inline-link" to="/contacto">
+              Reportar error
+            </Link>
+            .
+          </p>
+        </CalculatorSupportNote>
+      </CalculatorSupportGrid>
     </div>
   );
 }

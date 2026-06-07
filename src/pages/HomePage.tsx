@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+import { cuotasMetadata } from "../calculators/cuotas/metadata";
 import { ivaMetadata } from "../calculators/iva/metadata";
 import { PageMeta } from "../components/PageMeta";
 
@@ -10,6 +11,8 @@ const usageSteps = [
 ];
 
 export function HomePage() {
+  const CuotasIcon = cuotasMetadata.icon;
+
   return (
     <section className="page page--home">
       <PageMeta
@@ -68,6 +71,24 @@ export function HomePage() {
               <Link
                 className="button button--primary button--compact"
                 to="/calculadoras/iva"
+              >
+                Abrir
+              </Link>
+            </article>
+            <article className="tool-card tool-card--available quick-tool-card">
+              <span className="tool-icon" aria-hidden="true">
+                <CuotasIcon size={18} />
+              </span>
+              <div className="quick-tool-card__body">
+                <p className="calculator-card__category">
+                  {cuotasMetadata.category}
+                </p>
+                <h3>{cuotasMetadata.title}</h3>
+                <p>Compará contado contra cuotas.</p>
+              </div>
+              <Link
+                className="button button--primary button--compact"
+                to="/calculadoras/cuotas"
               >
                 Abrir
               </Link>

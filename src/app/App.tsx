@@ -4,6 +4,7 @@ import { SiteLayout } from "../components/layout/SiteLayout";
 import { HomePage } from "../pages/HomePage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { CalculatorsIndexPage } from "../pages/calculators/CalculatorsIndexPage";
+import { CuotasPage } from "../pages/calculators/CuotasPage";
 import { IvaPage } from "../pages/calculators/IvaPage";
 import { ContactoPage } from "../pages/institucional/ContactoPage";
 import { TransparenciaPage } from "../pages/institucional/TransparenciaPage";
@@ -15,6 +16,7 @@ export function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/calculadoras" element={<CalculatorsIndexPage />} />
         <Route path="/calculadoras/iva" element={<IvaPage />} />
+        <Route path="/calculadoras/cuotas" element={<CuotasPage />} />
         <Route path="/contacto" element={<ContactoPage />} />
         <Route path="/transparencia" element={<TransparenciaPage />} />
         <Route path="*" element={<NotFoundPage />} />
