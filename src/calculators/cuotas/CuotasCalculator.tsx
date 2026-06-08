@@ -155,7 +155,7 @@ export function CuotasCalculator() {
 
   return (
     <div className="calculator-shell">
-      <div className="calculator-main-grid">
+      <div className="calculator-main-grid calculator-main-grid--equal calculator-main-grid--cuotas">
         <div className="calculator-form calculator-panel">
           <div className="calculator-form-section">
             <p className="calculator-form-section__title">Datos principales</p>
@@ -173,125 +173,129 @@ export function CuotasCalculator() {
                     setCashPriceText(event.target.value);
                     resetCopyState();
                   }}
-                  aria-describedby="cuotas-cash-price-help cuotas-cash-price-error"
+                  aria-describedby="cuotas-cash-price-error"
                   aria-invalid={Boolean(validationErrors.cashPrice)}
                 />
               </div>
-              <p className="field-help" id="cuotas-cash-price-help">
-                Precio si pagás al contado.
-              </p>
               <ValidationMessage
                 id="cuotas-cash-price-error"
                 message={validationErrors.cashPrice}
               />
             </div>
 
-            <div className="calculator-form-row">
-              <div className="field-group">
-                <label htmlFor="cuotas-count">Cantidad de cuotas</label>
-                <input
-                  id="cuotas-count"
-                  className="plain-input"
-                  inputMode="numeric"
-                  placeholder="12"
-                  type="text"
-                  value={installmentsCountText}
-                  onChange={(event) => {
-                    setInstallmentsCountText(event.target.value);
-                    resetCopyState();
-                  }}
-                  aria-describedby="cuotas-count-error"
-                  aria-invalid={Boolean(validationErrors.installmentsCount)}
-                />
-                <ValidationMessage
-                  id="cuotas-count-error"
-                  message={validationErrors.installmentsCount}
-                />
-              </div>
+            <div className="calculator-form-section calculator-form-section--divided">
+              <p className="calculator-form-section__title">Financiación</p>
+              <div className="calculator-control-group">
+                <div className="calculator-form-row">
+                  <div className="field-group">
+                    <label htmlFor="cuotas-count">Cantidad de cuotas</label>
+                    <input
+                      id="cuotas-count"
+                      className="plain-input"
+                      inputMode="numeric"
+                      placeholder="12"
+                      type="text"
+                      value={installmentsCountText}
+                      onChange={(event) => {
+                        setInstallmentsCountText(event.target.value);
+                        resetCopyState();
+                      }}
+                      aria-describedby="cuotas-count-error"
+                      aria-invalid={Boolean(validationErrors.installmentsCount)}
+                    />
+                    <ValidationMessage
+                      id="cuotas-count-error"
+                      message={validationErrors.installmentsCount}
+                    />
+                  </div>
 
-              <div className="field-group">
-                <label htmlFor="cuotas-installment-amount">
-                  Monto de cada cuota
-                </label>
-                <div className="money-input">
-                  <span aria-hidden="true">Gs.</span>
-                  <input
-                    id="cuotas-installment-amount"
-                    inputMode="decimal"
-                    placeholder="100.000"
-                    type="text"
-                    value={installmentAmountText}
-                    onChange={(event) => {
-                      setInstallmentAmountText(event.target.value);
-                      resetCopyState();
-                    }}
-                    aria-describedby="cuotas-installment-amount-error"
-                    aria-invalid={Boolean(validationErrors.installmentAmount)}
-                  />
+                  <div className="field-group">
+                    <label htmlFor="cuotas-installment-amount">
+                      Monto de cada cuota
+                    </label>
+                    <div className="money-input">
+                      <span aria-hidden="true">Gs.</span>
+                      <input
+                        id="cuotas-installment-amount"
+                        inputMode="decimal"
+                        placeholder="100.000"
+                        type="text"
+                        value={installmentAmountText}
+                        onChange={(event) => {
+                          setInstallmentAmountText(event.target.value);
+                          resetCopyState();
+                        }}
+                        aria-describedby="cuotas-installment-amount-error"
+                        aria-invalid={Boolean(validationErrors.installmentAmount)}
+                      />
+                    </div>
+                    <ValidationMessage
+                      id="cuotas-installment-amount-error"
+                      message={validationErrors.installmentAmount}
+                    />
+                  </div>
                 </div>
-                <ValidationMessage
-                  id="cuotas-installment-amount-error"
-                  message={validationErrors.installmentAmount}
-                />
               </div>
             </div>
           </div>
 
           <div className="calculator-form-section calculator-form-section--optional">
             <p className="calculator-form-section__title">Opcionales</p>
-            <div className="calculator-form-row">
-              <div className="field-group">
-                <label htmlFor="cuotas-initial-payment">Entrega inicial</label>
-                <div className="money-input">
-                  <span aria-hidden="true">Gs.</span>
-                  <input
-                    id="cuotas-initial-payment"
-                    inputMode="decimal"
-                    placeholder="Opcional"
-                    type="text"
-                    value={initialPaymentText}
-                    onChange={(event) => {
-                      setInitialPaymentText(event.target.value);
-                      resetCopyState();
-                    }}
-                    aria-describedby="cuotas-initial-payment-error"
-                    aria-invalid={Boolean(validationErrors.initialPayment)}
+            <div className="calculator-control-group">
+              <div className="calculator-form-row">
+                <div className="field-group">
+                  <label htmlFor="cuotas-initial-payment">Entrega inicial</label>
+                  <div className="money-input">
+                    <span aria-hidden="true">Gs.</span>
+                    <input
+                      id="cuotas-initial-payment"
+                      inputMode="decimal"
+                      placeholder="Opcional"
+                      type="text"
+                      value={initialPaymentText}
+                      onChange={(event) => {
+                        setInitialPaymentText(event.target.value);
+                        resetCopyState();
+                      }}
+                      aria-describedby="cuotas-initial-payment-error"
+                      aria-invalid={Boolean(validationErrors.initialPayment)}
+                    />
+                  </div>
+                  <p className="field-help">Dejá vacío si no aplica.</p>
+                  <ValidationMessage
+                    id="cuotas-initial-payment-error"
+                    message={validationErrors.initialPayment}
                   />
                 </div>
-                <p className="field-help">Dejá vacío si no aplica.</p>
-                <ValidationMessage
-                  id="cuotas-initial-payment-error"
-                  message={validationErrors.initialPayment}
-                />
-              </div>
 
-              <div className="field-group">
-                <label htmlFor="cuotas-administrative-cost">
-                  Costo administrativo
-                </label>
-                <div className="money-input">
-                  <span aria-hidden="true">Gs.</span>
-                  <input
-                    id="cuotas-administrative-cost"
-                    inputMode="decimal"
-                    placeholder="Opcional"
-                    type="text"
-                    value={administrativeCostText}
-                    onChange={(event) => {
-                      setAdministrativeCostText(event.target.value);
-                      resetCopyState();
-                    }}
-                    aria-describedby="cuotas-administrative-cost-help cuotas-administrative-cost-error"
-                    aria-invalid={Boolean(validationErrors.administrativeCost)}
+                <div className="field-group">
+                  <label htmlFor="cuotas-administrative-cost">
+                    Costo administrativo
+                  </label>
+                  <div className="money-input">
+                    <span aria-hidden="true">Gs.</span>
+                    <input
+                      id="cuotas-administrative-cost"
+                      inputMode="decimal"
+                      placeholder="Opcional"
+                      type="text"
+                      value={administrativeCostText}
+                      onChange={(event) => {
+                        setAdministrativeCostText(event.target.value);
+                        resetCopyState();
+                      }}
+                      aria-describedby="cuotas-administrative-cost-help cuotas-administrative-cost-error"
+                      aria-invalid={Boolean(validationErrors.administrativeCost)}
+                    />
+                  </div>
+                  <p className="field-help" id="cuotas-administrative-cost-help">
+                    Incluí solo cargos que conozcas.
+                  </p>
+                  <ValidationMessage
+                    id="cuotas-administrative-cost-error"
+                    message={validationErrors.administrativeCost}
                   />
                 </div>
-                <p className="field-help" id="cuotas-administrative-cost-help">
-                  Incluí solo cargos que conozcas.
-                </p>
-                <ValidationMessage
-                  id="cuotas-administrative-cost-error"
-                  message={validationErrors.administrativeCost}
-                />
               </div>
             </div>
           </div>

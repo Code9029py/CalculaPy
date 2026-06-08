@@ -89,7 +89,7 @@ export function IvaCalculator() {
 
   return (
     <div className="calculator-shell">
-      <div className="calculator-main-grid">
+      <div className="calculator-main-grid calculator-main-grid--equal calculator-main-grid--iva">
         <div className="calculator-form calculator-panel">
           <div className="field-group">
             <label htmlFor="iva-amount">Monto</label>
@@ -118,45 +118,51 @@ export function IvaCalculator() {
             />
           </div>
 
-          <fieldset className="segmented-field">
-            <legend>Operación</legend>
-            <button
-              aria-pressed={mode === "add"}
-              className="segment-option"
-              type="button"
-              onClick={() => setMode("add")}
-            >
-              Agregar IVA
-            </button>
-            <button
-              aria-pressed={mode === "included"}
-              className="segment-option"
-              type="button"
-              onClick={() => setMode("included")}
-            >
-              Separar IVA incluido
-            </button>
-          </fieldset>
+          <div className="calculator-form-section">
+            <p className="calculator-form-section__title">Operación</p>
+            <fieldset className="segmented-field" aria-label="Operación">
+              <legend className="visually-hidden">Operación</legend>
+              <button
+                aria-pressed={mode === "add"}
+                className="segment-option"
+                type="button"
+                onClick={() => setMode("add")}
+              >
+                Agregar IVA
+              </button>
+              <button
+                aria-pressed={mode === "included"}
+                className="segment-option"
+                type="button"
+                onClick={() => setMode("included")}
+              >
+                Separar IVA incluido
+              </button>
+            </fieldset>
+          </div>
 
-          <fieldset className="segmented-field">
-            <legend>Tasa</legend>
-            <button
-              aria-pressed={rate === 10}
-              className="segment-option"
-              type="button"
-              onClick={() => setRate(10)}
-            >
-              10%
-            </button>
-            <button
-              aria-pressed={rate === 5}
-              className="segment-option"
-              type="button"
-              onClick={() => setRate(5)}
-            >
-              5%
-            </button>
-          </fieldset>
+          <div className="calculator-form-section">
+            <p className="calculator-form-section__title">Tasa</p>
+            <fieldset className="segmented-field" aria-label="Tasa">
+              <legend className="visually-hidden">Tasa</legend>
+              <button
+                aria-pressed={rate === 10}
+                className="segment-option"
+                type="button"
+                onClick={() => setRate(10)}
+              >
+                10%
+              </button>
+              <button
+                aria-pressed={rate === 5}
+                className="segment-option"
+                type="button"
+                onClick={() => setRate(5)}
+              >
+                5%
+              </button>
+            </fieldset>
+          </div>
 
           <div className="calculator-form-footer">
             <div className="calculator-actions">

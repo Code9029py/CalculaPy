@@ -105,6 +105,11 @@ export function ImportacionCalculator() {
       status: "base-only" as const
     });
   const statusCopy = result ? getStatusCopy(result.status) : null;
+  const resultContext = result
+    ? `Datos usados: producto ${formatUsd(input.productPriceUsd)} + envío ${formatUsd(
+        input.shippingUsd
+      )} · ${formatCurrency(input.exchangeRate)}/USD`
+    : undefined;
 
   function resetCopyState() {
     setCopyState("idle");
@@ -148,57 +153,66 @@ export function ImportacionCalculator() {
 
   return (
     <div className="calculator-shell">
-      <div className="calculator-main-grid">
+      <div className="calculator-main-grid calculator-main-grid--equal calculator-main-grid--importacion">
         <div className="calculator-form calculator-panel">
           <div className="calculator-form-section">
-            <p className="calculator-form-section__title">Datos principales</p>
-            <div className="calculator-form-row">
-              <div className="field-group">
-                <label htmlFor="importacion-product">Precio del producto</label>
-                <div className="unit-input">
-                  <input
-                    id="importacion-product"
-                    inputMode="decimal"
-                    placeholder="100"
-                    type="text"
-                    value={productPriceUsdText}
-                    onChange={(event) => {
-                      setProductPriceUsdText(event.target.value);
-                      resetCopyState();
-                    }}
-                    aria-describedby="importacion-product-error"
-                    aria-invalid={Boolean(validationErrors.productPriceUsd)}
-                  />
-                  <span aria-hidden="true">USD</span>
-                </div>
-                <ValidationMessage
-                  id="importacion-product-error"
-                  message={validationErrors.productPriceUsd}
-                />
-              </div>
+            <p className="calculator-form-section__title calculator-form-section__title--primary">
+              Datos principales
+            </p>
+            <div className="calculator-form-section">
+              <p className="calculator-form-section__title">Compra</p>
+              <div className="calculator-control-group">
+                <div className="calculator-form-row">
+                  <div className="field-group">
+                    <label htmlFor="importacion-product">
+                      Precio del producto
+                    </label>
+                    <div className="unit-input">
+                      <input
+                        id="importacion-product"
+                        inputMode="decimal"
+                        placeholder="100"
+                        type="text"
+                        value={productPriceUsdText}
+                        onChange={(event) => {
+                          setProductPriceUsdText(event.target.value);
+                          resetCopyState();
+                        }}
+                        aria-describedby="importacion-product-error"
+                        aria-invalid={Boolean(validationErrors.productPriceUsd)}
+                      />
+                      <span aria-hidden="true">USD</span>
+                    </div>
+                    <ValidationMessage
+                      id="importacion-product-error"
+                      message={validationErrors.productPriceUsd}
+                    />
+                  </div>
 
-              <div className="field-group">
-                <label htmlFor="importacion-shipping">Envío</label>
-                <div className="unit-input">
-                  <input
-                    id="importacion-shipping"
-                    inputMode="decimal"
-                    placeholder="20"
-                    type="text"
-                    value={shippingUsdText}
-                    onChange={(event) => {
-                      setShippingUsdText(event.target.value);
-                      resetCopyState();
-                    }}
-                    aria-describedby="importacion-shipping-error"
-                    aria-invalid={Boolean(validationErrors.shippingUsd)}
-                  />
-                  <span aria-hidden="true">USD</span>
+                  <div className="field-group">
+                    <label htmlFor="importacion-shipping">Envío</label>
+                    <div className="unit-input">
+                      <input
+                        id="importacion-shipping"
+                        inputMode="decimal"
+                        placeholder="20"
+                        type="text"
+                        value={shippingUsdText}
+                        onChange={(event) => {
+                          setShippingUsdText(event.target.value);
+                          resetCopyState();
+                        }}
+                        aria-describedby="importacion-shipping-error"
+                        aria-invalid={Boolean(validationErrors.shippingUsd)}
+                      />
+                      <span aria-hidden="true">USD</span>
+                    </div>
+                    <ValidationMessage
+                      id="importacion-shipping-error"
+                      message={validationErrors.shippingUsd}
+                    />
+                  </div>
                 </div>
-                <ValidationMessage
-                  id="importacion-shipping-error"
-                  message={validationErrors.shippingUsd}
-                />
               </div>
             </div>
 
@@ -231,58 +245,60 @@ export function ImportacionCalculator() {
           </div>
 
           <div className="calculator-form-section calculator-form-section--optional">
-            <p className="calculator-form-section__title">Opcional</p>
-            <div className="calculator-form-row">
-              <div className="field-group">
-                <label htmlFor="importacion-percentage">
-                  Porcentaje de cargos estimados
-                </label>
-                <div className="unit-input">
-                  <input
-                    id="importacion-percentage"
-                    inputMode="decimal"
-                    placeholder="10"
-                    type="text"
-                    value={estimatedChargesPercentageText}
-                    onChange={(event) => {
-                      setEstimatedChargesPercentageText(event.target.value);
-                      resetCopyState();
-                    }}
-                    aria-describedby="importacion-percentage-error"
-                    aria-invalid={Boolean(
-                      validationErrors.estimatedChargesPercentage
-                    )}
+            <p className="calculator-form-section__title">Cargos</p>
+            <div className="calculator-control-group">
+              <div className="calculator-form-row">
+                <div className="field-group">
+                  <label htmlFor="importacion-percentage">
+                    % de cargos estimados
+                  </label>
+                  <div className="unit-input">
+                    <input
+                      id="importacion-percentage"
+                      inputMode="decimal"
+                      placeholder="10"
+                      type="text"
+                      value={estimatedChargesPercentageText}
+                      onChange={(event) => {
+                        setEstimatedChargesPercentageText(event.target.value);
+                        resetCopyState();
+                      }}
+                      aria-describedby="importacion-percentage-error"
+                      aria-invalid={Boolean(
+                        validationErrors.estimatedChargesPercentage
+                      )}
+                    />
+                    <span aria-hidden="true">%</span>
+                  </div>
+                  <ValidationMessage
+                    id="importacion-percentage-error"
+                    message={validationErrors.estimatedChargesPercentage}
                   />
-                  <span aria-hidden="true">%</span>
                 </div>
-                <ValidationMessage
-                  id="importacion-percentage-error"
-                  message={validationErrors.estimatedChargesPercentage}
-                />
-              </div>
 
-              <div className="field-group">
-                <label htmlFor="importacion-fixed">Cargo fijo</label>
-                <div className="money-input">
-                  <span aria-hidden="true">Gs.</span>
-                  <input
-                    id="importacion-fixed"
-                    inputMode="decimal"
-                    placeholder="Opcional"
-                    type="text"
-                    value={fixedChargeGsText}
-                    onChange={(event) => {
-                      setFixedChargeGsText(event.target.value);
-                      resetCopyState();
-                    }}
-                    aria-describedby="importacion-fixed-error"
-                    aria-invalid={Boolean(validationErrors.fixedChargeGs)}
+                <div className="field-group">
+                  <label htmlFor="importacion-fixed">Cargo fijo</label>
+                  <div className="money-input">
+                    <span aria-hidden="true">Gs.</span>
+                    <input
+                      id="importacion-fixed"
+                      inputMode="decimal"
+                      placeholder="Opcional"
+                      type="text"
+                      value={fixedChargeGsText}
+                      onChange={(event) => {
+                        setFixedChargeGsText(event.target.value);
+                        resetCopyState();
+                      }}
+                      aria-describedby="importacion-fixed-error"
+                      aria-invalid={Boolean(validationErrors.fixedChargeGs)}
+                    />
+                  </div>
+                  <ValidationMessage
+                    id="importacion-fixed-error"
+                    message={validationErrors.fixedChargeGs}
                   />
                 </div>
-                <ValidationMessage
-                  id="importacion-fixed-error"
-                  message={validationErrors.fixedChargeGs}
-                />
               </div>
             </div>
           </div>
@@ -329,32 +345,15 @@ export function ImportacionCalculator() {
           }
           title="Total estimado"
           result={formatCurrency(displayResult.totalEstimated)}
+          context={resultContext}
           helper={
             statusCopy?.helper ??
             "Resultado orientativo según los datos ingresados."
           }
           rows={[
             {
-              label: "Estado",
-              value: statusCopy?.label ?? "Pendiente de datos válidos"
-            },
-            {
-              label: "Precio del producto",
-              value: formatUsd(result ? input.productPriceUsd : 0)
-            },
-            {
-              label: "Envío",
-              value: formatUsd(result ? input.shippingUsd : 0)
-            },
-            {
               label: "Subtotal USD",
               value: formatUsd(displayResult.subtotalUsd)
-            },
-            {
-              label: "Tipo de cambio",
-              value: result
-                ? `${formatCurrency(input.exchangeRate)} por USD`
-                : "Gs. 0 por USD"
             },
             {
               label: "Subtotal en Gs.",

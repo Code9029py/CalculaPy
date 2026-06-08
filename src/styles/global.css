@@ -106,7 +106,7 @@
   --tone-error-text: var(--color-danger);
 
   /* Foco */
-  --focus-ring: 3px solid #8fd0b7;
+  --focus-ring: 2px solid rgba(111, 154, 128, 0.38);
 
   color: var(--color-text);
   background: var(--color-bg);
@@ -206,6 +206,19 @@ h3 {
   color: var(--color-text-muted);
   font-size: 0.92rem;
   margin: 0;
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 /* -- 4. Layout ---------------------------------------------------------- */
@@ -503,7 +516,7 @@ main {
 .segment-option:focus-visible,
 .contact-tab:focus-visible {
   outline: var(--focus-ring);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 /* -- 6. Formularios / inputs ------------------------------------------- */
@@ -515,19 +528,22 @@ main {
 
 .field-group label,
 .segmented-field legend {
-  color: #24362d;
-  font-weight: var(--weight-strong);
+  color: #58685d;
+  font-weight: var(--weight-bold);
 }
 
 .money-input,
 .unit-input {
   align-items: center;
   background: var(--color-surface);
-  border: 1px solid #aebfb4;
+  border: 1px solid #9fb4a8;
   border-radius: var(--radius-md);
   display: flex;
   min-height: 50px;
   overflow: hidden;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
 }
 
 .money-input span,
@@ -553,8 +569,9 @@ main {
 
 .money-input:focus-within,
 .unit-input:focus-within {
-  outline: var(--focus-ring);
-  outline-offset: 2px;
+  border-color: #6f9a80;
+  box-shadow: 0 0 0 3px rgba(111, 154, 128, 0.16);
+  outline: 0;
 }
 
 .money-input:has(input[aria-invalid="true"]),
@@ -564,18 +581,22 @@ main {
 
 .plain-input {
   background: var(--color-surface);
-  border: 1px solid #aebfb4;
+  border: 1px solid #9fb4a8;
   border-radius: var(--radius-md);
   color: #14251c;
   min-height: 50px;
   outline: 0;
   padding: var(--space-2) var(--space-3);
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
   width: 100%;
 }
 
 .plain-input:focus {
-  outline: var(--focus-ring);
-  outline-offset: 2px;
+  border-color: #6f9a80;
+  box-shadow: 0 0 0 3px rgba(111, 154, 128, 0.16);
+  outline: 0;
 }
 
 .plain-input[aria-invalid="true"] {
@@ -596,11 +617,11 @@ main {
 }
 
 .segmented-field {
-  background: #f1f6ef;
-  border: 1px solid #d7e4d8;
+  background: #eef5ee;
+  border: 1px solid #c4d7c8;
   border-radius: var(--radius-md);
   display: grid;
-  gap: var(--space-1);
+  gap: var(--space-2);
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: 0;
   padding: var(--space-2);
@@ -615,9 +636,9 @@ main {
 .segment-option {
   align-items: center;
   background: transparent;
-  border: 1px solid transparent;
+  border: 1px solid #b8cdbd;
   border-radius: var(--radius-md);
-  color: #24362d;
+  color: #425248;
   cursor: pointer;
   display: flex;
   gap: var(--space-2);
@@ -629,9 +650,9 @@ main {
 
 .segment-option[aria-pressed="true"] {
   background: var(--color-surface);
-  border-color: #c4d7c7;
+  border-color: #6f9a80;
   box-shadow: var(--shadow-sm);
-  color: var(--green-800);
+  color: var(--green-900);
   font-weight: var(--weight-strong);
 }
 
@@ -669,8 +690,9 @@ main {
 .form-field input:focus,
 .form-field select:focus,
 .form-field textarea:focus {
-  outline: var(--focus-ring);
-  outline-offset: 2px;
+  border-color: #6f9a80;
+  box-shadow: 0 0 0 3px rgba(111, 154, 128, 0.16);
+  outline: 0;
 }
 
 /* -- 7. Cards (tool / quick / row) ------------------------------------- */
@@ -828,10 +850,14 @@ main {
 }
 
 .calculator-main-grid {
-  align-items: stretch;
+  align-items: start;
   display: grid;
   gap: var(--space-3);
   grid-template-columns: minmax(320px, 0.96fr) minmax(340px, 1.04fr);
+}
+
+.calculator-main-grid--equal {
+  align-items: stretch;
 }
 
 .calculator-main-grid .calculator-form,
@@ -848,6 +874,7 @@ main {
   border: 1px solid var(--color-panel-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
+  align-content: start;
   display: grid;
   gap: var(--space-2);
   padding: var(--space-3);
@@ -868,11 +895,17 @@ main {
 
 .calculator-form-section {
   display: grid;
-  gap: var(--space-2);
+  gap: var(--space-1);
 }
 
 .calculator-form-section--optional {
   border-top: 1px solid var(--color-border-subtle);
+  padding-top: var(--space-2);
+}
+
+.calculator-form-section--divided {
+  border-top: 1px solid var(--color-border-subtle);
+  margin-top: var(--space-1);
   padding-top: var(--space-2);
 }
 
@@ -884,7 +917,26 @@ main {
   color: var(--green-700);
   font-size: 0.84rem;
   font-weight: var(--weight-strong);
-  margin: 0;
+  margin: 0 0 var(--space-1);
+}
+
+.calculator-form-section__title--primary {
+  color: #34483b;
+  font-size: 0.94rem;
+}
+
+.calculator-control-group {
+  background: rgba(247, 250, 245, 0.78);
+  border: 1px solid #d6e2d8;
+  border-radius: var(--radius-md);
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3);
+}
+
+.calculator-control-group--income {
+  background: #eef7e8;
+  border-color: #c5dbc2;
 }
 
 .calculator-form-row {
@@ -919,6 +971,7 @@ main {
 }
 
 .result-card__label,
+.result-card__context,
 .result-card__helper,
 .result-breakdown dt {
   color: #4d6656;
@@ -931,6 +984,15 @@ main {
   font-size: clamp(2.1rem, 4vw, 3.2rem);
   line-height: 1;
   margin: var(--space-2) 0;
+}
+
+.result-card__context {
+  background: rgba(255, 255, 255, 0.48);
+  border: 1px solid #d5e5c4;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
 }
 
 .result-breakdown {
@@ -963,6 +1025,34 @@ main {
   font-weight: var(--weight-strong);
   margin: 0;
   text-align: right;
+}
+
+.result-card__secondary {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+}
+
+.result-card__secondary-title {
+  color: #4d6656;
+  font-size: 0.86rem;
+  font-weight: var(--weight-strong);
+  margin: 0;
+}
+
+.result-breakdown--secondary {
+  background: rgba(255, 255, 255, 0.34);
+  border-color: #d9e6ca;
+  margin-top: 0;
+}
+
+.result-breakdown--secondary div {
+  padding-top: var(--space-1);
+}
+
+.result-breakdown--secondary dt,
+.result-breakdown--secondary dd {
+  font-size: 0.92rem;
 }
 
 .result-card .button--primary {

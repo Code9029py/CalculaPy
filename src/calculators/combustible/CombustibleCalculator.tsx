@@ -90,10 +90,15 @@ export function CombustibleCalculator() {
       status: "trip" as const
     });
   const statusCopy = result ? getStatusCopy(result.status) : null;
-  const hasTripsPerMonthInput = tripsPerMonthText.trim().length > 0;
-  const monthlyCostValue = hasTripsPerMonthInput
+  const hasMonthlyTrips = result ? input.tripsPerMonth > 0 : false;
+  const monthlyCostValue = hasMonthlyTrips
     ? formatCurrency(displayResult.estimatedMonthlyCost)
     : "No calculado";
+  const resultContext = result
+    ? `Datos usados: ${formatGuaranies(input.distanceKm)} km · ${formatGuaranies(
+        input.consumptionPer100Km
+      )} L/100km · ${formatCurrency(input.pricePerLiter)}/L`
+    : undefined;
 
   function resetCopyState() {
     setCopyState("idle");
@@ -137,7 +142,7 @@ export function CombustibleCalculator() {
 
   return (
     <div className="calculator-shell">
-      <div className="calculator-main-grid">
+      <div className="calculator-main-grid calculator-main-grid--equal calculator-main-grid--combustible">
         <div className="calculator-form calculator-panel">
           <div className="calculator-form-section">
             <p className="calculator-form-section__title">Datos principales</p>
@@ -165,59 +170,66 @@ export function CombustibleCalculator() {
               />
             </div>
 
-            <div className="calculator-form-row">
-              <div className="field-group">
-                <label htmlFor="combustible-consumption">
-                  Consumo del vehículo
-                </label>
-                <div className="unit-input">
-                  <input
-                    id="combustible-consumption"
-                    inputMode="decimal"
-                    placeholder="8"
-                    type="text"
-                    value={consumptionPer100KmText}
-                    onChange={(event) => {
-                      setConsumptionPer100KmText(event.target.value);
-                      resetCopyState();
-                    }}
-                    aria-describedby="combustible-consumption-help combustible-consumption-error"
-                    aria-invalid={Boolean(validationErrors.consumptionPer100Km)}
-                  />
-                  <span aria-hidden="true">L/100km</span>
-                </div>
-                <p className="field-help" id="combustible-consumption-help">
-                  Litros cada 100 km.
-                </p>
-                <ValidationMessage
-                  id="combustible-consumption-error"
-                  message={validationErrors.consumptionPer100Km}
-                />
-              </div>
+            <div className="calculator-form-section">
+              <p className="calculator-form-section__title">Datos técnicos</p>
+              <div className="calculator-control-group">
+                <div className="calculator-form-row">
+                  <div className="field-group">
+                    <label htmlFor="combustible-consumption">
+                      Consumo del vehículo
+                    </label>
+                    <div className="unit-input">
+                      <input
+                        id="combustible-consumption"
+                        inputMode="decimal"
+                        placeholder="8"
+                        type="text"
+                        value={consumptionPer100KmText}
+                        onChange={(event) => {
+                          setConsumptionPer100KmText(event.target.value);
+                          resetCopyState();
+                        }}
+                        aria-describedby="combustible-consumption-help combustible-consumption-error"
+                        aria-invalid={Boolean(
+                          validationErrors.consumptionPer100Km
+                        )}
+                      />
+                      <span aria-hidden="true">L/100km</span>
+                    </div>
+                    <p className="field-help" id="combustible-consumption-help">
+                      Litros cada 100 km.
+                    </p>
+                    <ValidationMessage
+                      id="combustible-consumption-error"
+                      message={validationErrors.consumptionPer100Km}
+                    />
+                  </div>
 
-              <div className="field-group">
-                <label htmlFor="combustible-price">Precio por litro</label>
-                <div className="money-input">
-                  <span aria-hidden="true">Gs.</span>
-                  <input
-                    id="combustible-price"
-                    inputMode="decimal"
-                    placeholder="7.500"
-                    type="text"
-                    value={pricePerLiterText}
-                    onChange={(event) => {
-                      setPricePerLiterText(event.target.value);
-                      resetCopyState();
-                    }}
-                    aria-describedby="combustible-price-error"
-                    aria-invalid={Boolean(validationErrors.pricePerLiter)}
-                  />
+                  <div className="field-group">
+                    <label htmlFor="combustible-price">Precio por litro</label>
+                    <div className="money-input">
+                      <span aria-hidden="true">Gs.</span>
+                      <input
+                        id="combustible-price"
+                        inputMode="decimal"
+                        placeholder="7.500"
+                        type="text"
+                        value={pricePerLiterText}
+                        onChange={(event) => {
+                          setPricePerLiterText(event.target.value);
+                          resetCopyState();
+                        }}
+                        aria-describedby="combustible-price-error"
+                        aria-invalid={Boolean(validationErrors.pricePerLiter)}
+                      />
+                    </div>
+                    <ValidationMessage
+                      id="combustible-price-error"
+                      message={validationErrors.pricePerLiter}
+                    />
+                    <p className="field-help">Precio cargado por litro.</p>
+                  </div>
                 </div>
-                <ValidationMessage
-                  id="combustible-price-error"
-                  message={validationErrors.pricePerLiter}
-                />
-                <p className="field-help">Precio cargado por litro.</p>
               </div>
             </div>
           </div>
@@ -296,40 +308,19 @@ export function CombustibleCalculator() {
           }
           title="Costo estimado"
           result={formatCurrency(displayResult.estimatedCost)}
+          context={resultContext}
           helper={
             statusCopy?.helper ??
             "Resultado orientativo según los datos ingresados."
           }
           rows={[
             {
-              label: "Estado",
-              value: statusCopy?.label ?? "Pendiente de datos válidos"
-            },
-            {
-              label: "Distancia",
-              value: result ? `${formatGuaranies(input.distanceKm)} km` : "0 km"
-            },
-            {
-              label: "Consumo del vehículo",
-              value: result
-                ? `${formatGuaranies(input.consumptionPer100Km)} L/100km`
-                : "0 L/100km"
-            },
-            {
               label: "Litros estimados",
               value: formatLiters(displayResult.estimatedLiters)
             },
             {
-              label: "Precio por litro",
-              value: formatCurrency(result ? input.pricePerLiter : 0)
-            },
-            {
               label: "Costo estimado",
               value: formatCurrency(displayResult.estimatedCost)
-            },
-            {
-              label: "Viajes al mes",
-              value: result ? formatGuaranies(input.tripsPerMonth) : "0"
             },
             {
               label: "Costo mensual estimado",
