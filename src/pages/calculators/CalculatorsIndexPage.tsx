@@ -1,4 +1,3 @@
-import { Fuel, ShoppingBag } from "lucide-react";
 import type { ComponentType } from "react";
 import type { LucideProps } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -17,21 +16,18 @@ type UpcomingTool = {
 };
 
 const upcomingTools: UpcomingTool[] = [
-  {
-    category: "Vida diaria",
-    description: "Estimar gasto mensual según distancia, consumo y precio por litro.",
-    Icon: Fuel,
-    title: "Combustible"
-  },
-  {
-    category: "Compras",
-    description: "Estimar costos de compra internacional con datos configurables.",
-    Icon: ShoppingBag,
-    title: "Importación"
-  }
 ];
 
 export function CalculatorsIndexPage() {
+  const availableCount = calculatorRegistry.length;
+  const upcomingCount = upcomingTools.length;
+  const availableLabel = `${availableCount} ${
+    availableCount === 1 ? "disponible" : "disponibles"
+  }`;
+  const upcomingLabel = ` · ${upcomingCount} ${
+    upcomingCount === 1 ? "próxima" : "próximas"
+  }`;
+
   return (
     <section className="page">
       <PageMeta
@@ -49,7 +45,8 @@ export function CalculatorsIndexPage() {
             </p>
           </div>
           <p className="catalog-summary catalog-hero__summary">
-            {calculatorRegistry.length} disponible · {upcomingTools.length} próximas
+            {availableLabel}
+            {upcomingLabel}
           </p>
         </div>
 

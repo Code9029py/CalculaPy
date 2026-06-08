@@ -519,7 +519,8 @@ main {
   font-weight: var(--weight-strong);
 }
 
-.money-input {
+.money-input,
+.unit-input {
   align-items: center;
   background: var(--color-surface);
   border: 1px solid #aebfb4;
@@ -529,7 +530,8 @@ main {
   overflow: hidden;
 }
 
-.money-input span {
+.money-input span,
+.unit-input span {
   align-items: center;
   align-self: stretch;
   background: #edf6e8;
@@ -549,12 +551,14 @@ main {
   width: 100%;
 }
 
-.money-input:focus-within {
+.money-input:focus-within,
+.unit-input:focus-within {
   outline: var(--focus-ring);
   outline-offset: 2px;
 }
 
-.money-input:has(input[aria-invalid="true"]) {
+.money-input:has(input[aria-invalid="true"]),
+.unit-input:has(input[aria-invalid="true"]) {
   border-color: #b3261e;
 }
 
@@ -726,7 +730,7 @@ main {
 .quick-access-grid {
   display: grid;
   gap: var(--space-2);
-  grid-template-columns: repeat(3, minmax(260px, 360px));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 360px));
 }
 
 .quick-tool-card {
@@ -790,7 +794,7 @@ main {
 /* -- 8. Calculadora ---------------------------------------------------- */
 
 .calculator-page {
-  padding-top: var(--space-4);
+  padding-top: var(--space-5);
 }
 
 .calculator-hero {

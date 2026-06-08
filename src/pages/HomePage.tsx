@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
+import { combustibleMetadata } from "../calculators/combustible/metadata";
 import { cuotasMetadata } from "../calculators/cuotas/metadata";
+import { importacionMetadata } from "../calculators/importacion/metadata";
 import { ivaMetadata } from "../calculators/iva/metadata";
 import { presupuestoMetadata } from "../calculators/presupuesto/metadata";
 import { PageMeta } from "../components/PageMeta";
@@ -12,7 +14,9 @@ const usageSteps = [
 ];
 
 export function HomePage() {
+  const CombustibleIcon = combustibleMetadata.icon;
   const CuotasIcon = cuotasMetadata.icon;
+  const ImportacionIcon = importacionMetadata.icon;
   const PresupuestoIcon = presupuestoMetadata.icon;
 
   return (
@@ -109,6 +113,42 @@ export function HomePage() {
               <Link
                 className="button button--primary button--compact"
                 to="/calculadoras/presupuesto"
+              >
+                Abrir
+              </Link>
+            </article>
+            <article className="tool-card tool-card--available quick-tool-card">
+              <span className="tool-icon" aria-hidden="true">
+                <CombustibleIcon size={18} />
+              </span>
+              <div className="quick-tool-card__body">
+                <p className="calculator-card__category">
+                  {combustibleMetadata.category}
+                </p>
+                <h3>{combustibleMetadata.title}</h3>
+                <p>Estimá litros y costo del viaje.</p>
+              </div>
+              <Link
+                className="button button--primary button--compact"
+                to="/calculadoras/combustible"
+              >
+                Abrir
+              </Link>
+            </article>
+            <article className="tool-card tool-card--available quick-tool-card">
+              <span className="tool-icon" aria-hidden="true">
+                <ImportacionIcon size={18} />
+              </span>
+              <div className="quick-tool-card__body">
+                <p className="calculator-card__category">
+                  {importacionMetadata.category}
+                </p>
+                <h3>{importacionMetadata.title}</h3>
+                <p>Estimá el costo final de una compra internacional.</p>
+              </div>
+              <Link
+                className="button button--primary button--compact"
+                to="/calculadoras/importacion"
               >
                 Abrir
               </Link>

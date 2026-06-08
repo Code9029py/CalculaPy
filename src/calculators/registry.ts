@@ -1,4 +1,6 @@
+import { combustibleMetadata } from "./combustible/metadata";
 import { cuotasMetadata } from "./cuotas/metadata";
+import { importacionMetadata } from "./importacion/metadata";
 import { ivaMetadata } from "./iva/metadata";
 import { presupuestoMetadata } from "./presupuesto/metadata";
 import type { CalculatorMetadata } from "./types";
@@ -6,7 +8,9 @@ import type { CalculatorMetadata } from "./types";
 export const calculatorRegistry: CalculatorMetadata[] = [
   ivaMetadata,
   cuotasMetadata,
-  presupuestoMetadata
+  presupuestoMetadata,
+  combustibleMetadata,
+  importacionMetadata
 ];
 
 export function getCalculatorPath(calculator: CalculatorMetadata) {
