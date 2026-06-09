@@ -775,15 +775,15 @@ main {
 .quick-tool-card {
   align-items: center;
   display: grid;
-  gap: var(--space-2);
+  gap: 11px;
   grid-template-columns: auto minmax(0, 1fr) auto;
-  padding: 10px;
+  padding: 12px;
 }
 
 .quick-tool-card .tool-icon {
   font-size: 0.78rem;
-  height: 34px;
-  width: 34px;
+  height: 36px;
+  width: 36px;
 }
 
 .quick-tool-card h3 {
