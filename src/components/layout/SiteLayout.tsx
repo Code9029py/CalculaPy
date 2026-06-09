@@ -32,7 +32,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
         <div className="site-footer__inner">
           <p className="site-footer__copy">
             <strong>&copy; 2026 CalculaPy.</strong>
-            <span>Resultados orientativos para tus cálculos cotidianos.</span>
+            <span>Útil, claro y pensado para tu día a día.</span>
           </p>
           <NavLink className="site-footer__link" to="/transparencia">
             Transparencia

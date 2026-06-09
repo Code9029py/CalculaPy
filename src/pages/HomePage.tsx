@@ -71,7 +71,7 @@ export function HomePage() {
             <h1>Calculadoras simples para Paraguay</h1>
             <p className="hero__lead">
               Estimá IVA, cuotas, presupuesto y otros cálculos cotidianos con
-              resultados orientativos y fórmulas claras.
+              fórmulas claras y fuentes a la vista.
             </p>
             <div className="hero__actions">
               <Link className="button button--primary" to="/calculadoras">
