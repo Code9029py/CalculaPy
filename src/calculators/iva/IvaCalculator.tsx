@@ -91,31 +91,34 @@ export function IvaCalculator() {
     <div className="calculator-shell">
       <div className="calculator-main-grid calculator-main-grid--equal calculator-main-grid--iva">
         <div className="calculator-form calculator-panel">
-          <div className="field-group">
-            <label htmlFor="iva-amount">Monto</label>
-            <div className="money-input">
-              <span aria-hidden="true">Gs.</span>
-              <input
-                id="iva-amount"
-                inputMode="decimal"
-                placeholder="100.000"
-                type="text"
-                value={amountText}
-                onChange={(event) => {
-                  setAmountText(event.target.value);
-                  setCopyState("idle");
-                }}
-                aria-describedby="iva-amount-help iva-amount-error"
-                aria-invalid={Boolean(validationErrors.amount)}
+          <div className="calculator-form-section">
+            <p className="calculator-form-section__title">Datos principales</p>
+            <div className="field-group">
+              <label htmlFor="iva-amount">Monto</label>
+              <div className="money-input">
+                <span aria-hidden="true">Gs.</span>
+                <input
+                  id="iva-amount"
+                  inputMode="decimal"
+                  placeholder="100.000"
+                  type="text"
+                  value={amountText}
+                  onChange={(event) => {
+                    setAmountText(event.target.value);
+                    setCopyState("idle");
+                  }}
+                  aria-describedby="iva-amount-help iva-amount-error"
+                  aria-invalid={Boolean(validationErrors.amount)}
+                />
+              </div>
+              <p className="field-help" id="iva-amount-help">
+                Podés escribir 100000, 100.000 o 100000,50.
+              </p>
+              <ValidationMessage
+                id="iva-amount-error"
+                message={validationErrors.amount}
               />
             </div>
-            <p className="field-help" id="iva-amount-help">
-              Podés escribir 100000, 100.000 o 100000,50.
-            </p>
-            <ValidationMessage
-              id="iva-amount-error"
-              message={validationErrors.amount}
-            />
           </div>
 
           <div className="calculator-form-section">

@@ -182,64 +182,64 @@ export function CuotasCalculator() {
                 message={validationErrors.cashPrice}
               />
             </div>
+          </div>
 
-            <div className="calculator-form-section calculator-form-section--divided">
-              <p className="calculator-form-section__title">Financiación</p>
-              <div className="calculator-control-group">
-                <div className="calculator-form-row">
-                  <div className="field-group">
-                    <label htmlFor="cuotas-count">Cantidad de cuotas</label>
+          <div className="calculator-form-section">
+            <p className="calculator-form-section__title">Financiación</p>
+            <div className="calculator-control-group">
+              <div className="calculator-form-row">
+                <div className="field-group">
+                  <label htmlFor="cuotas-count">Cantidad de cuotas</label>
+                  <input
+                    id="cuotas-count"
+                    className="plain-input"
+                    inputMode="numeric"
+                    placeholder="12"
+                    type="text"
+                    value={installmentsCountText}
+                    onChange={(event) => {
+                      setInstallmentsCountText(event.target.value);
+                      resetCopyState();
+                    }}
+                    aria-describedby="cuotas-count-error"
+                    aria-invalid={Boolean(validationErrors.installmentsCount)}
+                  />
+                  <ValidationMessage
+                    id="cuotas-count-error"
+                    message={validationErrors.installmentsCount}
+                  />
+                </div>
+
+                <div className="field-group">
+                  <label htmlFor="cuotas-installment-amount">
+                    Monto de cada cuota
+                  </label>
+                  <div className="money-input">
+                    <span aria-hidden="true">Gs.</span>
                     <input
-                      id="cuotas-count"
-                      className="plain-input"
-                      inputMode="numeric"
-                      placeholder="12"
+                      id="cuotas-installment-amount"
+                      inputMode="decimal"
+                      placeholder="100.000"
                       type="text"
-                      value={installmentsCountText}
+                      value={installmentAmountText}
                       onChange={(event) => {
-                        setInstallmentsCountText(event.target.value);
+                        setInstallmentAmountText(event.target.value);
                         resetCopyState();
                       }}
-                      aria-describedby="cuotas-count-error"
-                      aria-invalid={Boolean(validationErrors.installmentsCount)}
-                    />
-                    <ValidationMessage
-                      id="cuotas-count-error"
-                      message={validationErrors.installmentsCount}
+                      aria-describedby="cuotas-installment-amount-error"
+                      aria-invalid={Boolean(validationErrors.installmentAmount)}
                     />
                   </div>
-
-                  <div className="field-group">
-                    <label htmlFor="cuotas-installment-amount">
-                      Monto de cada cuota
-                    </label>
-                    <div className="money-input">
-                      <span aria-hidden="true">Gs.</span>
-                      <input
-                        id="cuotas-installment-amount"
-                        inputMode="decimal"
-                        placeholder="100.000"
-                        type="text"
-                        value={installmentAmountText}
-                        onChange={(event) => {
-                          setInstallmentAmountText(event.target.value);
-                          resetCopyState();
-                        }}
-                        aria-describedby="cuotas-installment-amount-error"
-                        aria-invalid={Boolean(validationErrors.installmentAmount)}
-                      />
-                    </div>
-                    <ValidationMessage
-                      id="cuotas-installment-amount-error"
-                      message={validationErrors.installmentAmount}
-                    />
-                  </div>
+                  <ValidationMessage
+                    id="cuotas-installment-amount-error"
+                    message={validationErrors.installmentAmount}
+                  />
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="calculator-form-section calculator-form-section--optional">
+          <div className="calculator-form-section">
             <p className="calculator-form-section__title">Opcionales</p>
             <div className="calculator-control-group">
               <div className="calculator-form-row">

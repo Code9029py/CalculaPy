@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { Mail } from "lucide-react";
+import { useMemo, useState } from "react";
 
 import { PageMeta } from "../../components/PageMeta";
+
+const CONTACT_EMAIL = "contacto@calcupy.com";
 
 type ContactType = "error" | "calculator" | "general";
 
@@ -15,6 +18,12 @@ const contactOptions: Array<{ id: ContactType; label: string }> = [
   { id: "calculator", label: "Sugerir calculadora" },
   { id: "general", label: "Consulta general" }
 ];
+
+const subjectsByType: Record<ContactType, string> = {
+  error: "Error en una calculadora",
+  calculator: "Sugerencia para CalcuPY",
+  general: "Consulta general sobre CalcuPY"
+};
 
 const fieldsByType: Record<ContactType, ContactField[]> = {
   error: [
@@ -64,6 +73,27 @@ const fieldsByType: Record<ContactType, ContactField[]> = {
   ]
 };
 
+function buildMailto(type: ContactType, values: Record<string, string>) {
+  const subject = subjectsByType[type];
+  const lines: string[] = [];
+
+  for (const field of fieldsByType[type]) {
+    const value = values[field.label]?.trim() ?? "";
+    lines.push(`${field.label}:`);
+    lines.push(value.length > 0 ? value : "—");
+    lines.push("");
+  }
+
+  lines.push("—");
+  lines.push("Enviado desde CalcuPY (plantilla de contacto).");
+
+  const body = lines.join("\n");
+
+  return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+    subject
+  )}&body=${encodeURIComponent(body)}`;
+}
+
 export function ContactoPage() {
   const [contactType, setContactType] = useState<ContactType>("error");
   const [valuesByType, setValuesByType] = useState<
@@ -72,6 +102,11 @@ export function ContactoPage() {
 
   const activeFields = fieldsByType[contactType];
   const currentValues = valuesByType[contactType];
+
+  const mailtoHref = useMemo(
+    () => buildMailto(contactType, currentValues),
+    [contactType, currentValues]
+  );
 
   function updateField(label: string, value: string) {
     setValuesByType((previous) => ({
@@ -86,21 +121,21 @@ export function ContactoPage() {
   return (
     <section className="page">
       <PageMeta
-        title="Contacto y reportes | CalculaPy"
-        description="Canal de contacto y reporte de errores para CalculaPy."
+        title="Contacto y reportes | CalcuPY"
+        description="Canal de contacto y reporte de errores para CalcuPY."
       />
       <div className="page__content">
         <div className="contact-hero">
           <div className="contact-hero__content">
             <p className="eyebrow">Soporte</p>
-            <h1 className="contact-hero__title">Contacto</h1>
+            <h1 className="contact-hero__title">Contacto y reportes</h1>
             <p className="contact-hero__description">
               Reportá errores, sugerí nuevas calculadoras o enviá una consulta
               general.
             </p>
             <p className="contact-hero__description">
-              Completá los datos para preparar el reporte cuando el envío esté
-              disponible.
+              Completá los datos para preparar el reporte y abrí el correo
+              cuando estés listo.
             </p>
           </div>
         </div>
@@ -114,6 +149,7 @@ export function ContactoPage() {
               type="button"
               onClick={() => setContactType(option.id)}
             >
+              <span aria-hidden="true">+</span>
               {option.label}
             </button>
           ))}
@@ -156,10 +192,17 @@ export function ContactoPage() {
             ))}
           </div>
 
-          <div className="contact-form__actions">
-            <button className="button button--primary" disabled type="button">
-              Envío no disponible
-            </button>
+          <div className="contact-form__footer">
+            <p className="small-note">
+              Destino:{" "}
+              <a className="inline-link" href={`mailto:${CONTACT_EMAIL}`}>
+                {CONTACT_EMAIL}
+              </a>
+            </p>
+            <a className="button button--primary" href={mailtoHref}>
+              <Mail size={16} aria-hidden="true" />
+              Abrir correo con esta plantilla
+            </a>
           </div>
         </form>
       </div>

@@ -72,6 +72,10 @@
   --color-panel-result-strong: #dff0c6;
   --color-panel-border: #cbdccc;
   --color-result-text: #173426;
+  --color-control-group-bg: #eef5ee;
+  --color-control-group-border: #c4d7c8;
+  --color-control-border: #8fa597;
+  --color-control-focus: #6f9a80;
 
   /* Color — bordes */
   --color-border-subtle: #e1e9e2;
@@ -513,8 +517,7 @@ main {
 .button:focus-visible,
 .site-nav a:focus-visible,
 .site-footer__link:focus-visible,
-.segment-option:focus-visible,
-.contact-tab:focus-visible {
+.segment-option:focus-visible {
   outline: var(--focus-ring);
   outline-offset: 3px;
 }
@@ -527,8 +530,10 @@ main {
 }
 
 .field-group label,
-.segmented-field legend {
-  color: #58685d;
+.segmented-field legend,
+.calculator-field-label {
+  color: #1a2620;
+  font-size: 0.95rem;
   font-weight: var(--weight-bold);
 }
 
@@ -536,7 +541,7 @@ main {
 .unit-input {
   align-items: center;
   background: var(--color-surface);
-  border: 1px solid #9fb4a8;
+  border: 1px solid var(--color-control-border);
   border-radius: var(--radius-md);
   display: flex;
   min-height: 50px;
@@ -557,7 +562,11 @@ main {
   padding: 0 var(--space-3);
 }
 
-.field-group input {
+/* Default para inputs internos de money-input/unit-input:
+   son transparentes porque el wrapper es el que dibuja borde y radius.
+   El :not() excluye al plain-input (input "naked" sin wrapper) que sí
+   necesita borde propio. */
+.field-group input:not(.plain-input) {
   background: transparent;
   border: 0;
   color: #14251c;
@@ -569,7 +578,7 @@ main {
 
 .money-input:focus-within,
 .unit-input:focus-within {
-  border-color: #6f9a80;
+  border-color: var(--color-control-focus);
   box-shadow: 0 0 0 3px rgba(111, 154, 128, 0.16);
   outline: 0;
 }
@@ -581,7 +590,7 @@ main {
 
 .plain-input {
   background: var(--color-surface);
-  border: 1px solid #9fb4a8;
+  border: 1px solid var(--color-control-border);
   border-radius: var(--radius-md);
   color: #14251c;
   min-height: 50px;
@@ -594,7 +603,7 @@ main {
 }
 
 .plain-input:focus {
-  border-color: #6f9a80;
+  border-color: var(--color-control-focus);
   box-shadow: 0 0 0 3px rgba(111, 154, 128, 0.16);
   outline: 0;
 }
@@ -617,14 +626,14 @@ main {
 }
 
 .segmented-field {
-  background: #eef5ee;
-  border: 1px solid #c4d7c8;
+  background: var(--color-control-group-bg);
+  border: 1px solid var(--color-control-group-border);
   border-radius: var(--radius-md);
   display: grid;
   gap: var(--space-2);
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: 0;
-  padding: var(--space-2);
+  padding: var(--space-3);
 }
 
 .segmented-field legend {
@@ -635,8 +644,8 @@ main {
 
 .segment-option {
   align-items: center;
-  background: transparent;
-  border: 1px solid #b8cdbd;
+  background: var(--color-surface);
+  border: 1px solid var(--color-control-group-border);
   border-radius: var(--radius-md);
   color: #425248;
   cursor: pointer;
@@ -644,14 +653,22 @@ main {
   gap: var(--space-2);
   font-weight: var(--weight-bold);
   justify-content: center;
-  min-height: 42px;
-  padding: 6px var(--space-3);
+  min-height: 50px;
+  padding: var(--space-2) var(--space-3);
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    color 0.16s ease;
+}
+
+.segment-option:hover {
+  border-color: var(--color-control-focus);
 }
 
 .segment-option[aria-pressed="true"] {
   background: var(--color-surface);
-  border-color: #6f9a80;
-  box-shadow: var(--shadow-sm);
+  border-color: var(--green-700);
+  box-shadow: 0 0 0 3px rgba(111, 154, 128, 0.16);
   color: var(--green-900);
   font-weight: var(--weight-strong);
 }
@@ -690,7 +707,7 @@ main {
 .form-field input:focus,
 .form-field select:focus,
 .form-field textarea:focus {
-  border-color: #6f9a80;
+  border-color: var(--color-control-focus);
   box-shadow: 0 0 0 3px rgba(111, 154, 128, 0.16);
   outline: 0;
 }
@@ -748,20 +765,19 @@ main {
   margin: 0;
 }
 
-/* Quick access (home) */
+/* Quick access (home) — hasta 3 cards en fila, ajustable a 1 col en mobile */
 .quick-access-grid {
   display: grid;
-  gap: var(--space-2);
-  grid-template-columns: repeat(auto-fit, minmax(260px, 360px));
+  gap: var(--space-3);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .quick-tool-card {
   align-items: center;
   display: grid;
-  gap: 12px;
+  gap: var(--space-3);
   grid-template-columns: auto minmax(0, 1fr) auto;
-  max-width: 360px;
-  padding: 10px;
+  padding: var(--space-3);
 }
 
 .quick-tool-card .tool-icon {
@@ -895,48 +911,45 @@ main {
 
 .calculator-form-section {
   display: grid;
-  gap: var(--space-1);
+  gap: var(--space-2);
 }
 
-.calculator-form-section--optional {
+/* Divider automático antes de cualquier sección que no sea la primera.
+   Cubre tanto secciones hermanas como cualquier elemento previo
+   (field-group, etc) que la preceda dentro del formulario. */
+.calculator-form > * + .calculator-form-section,
+.calculator-form-section + .calculator-form-section {
   border-top: 1px solid var(--color-border-subtle);
-  padding-top: var(--space-2);
+  margin-top: var(--space-3);
+  padding-top: var(--space-4);
 }
 
-.calculator-form-section--divided {
-  border-top: 1px solid var(--color-border-subtle);
-  margin-top: var(--space-1);
-  padding-top: var(--space-2);
-}
-
-.calculator-form-section--optional label {
-  color: #58685d;
-}
-
-.calculator-form-section__title {
-  color: var(--green-700);
-  font-size: 0.84rem;
-  font-weight: var(--weight-strong);
-  margin: 0 0 var(--space-1);
-}
-
+.calculator-form-section__title,
 .calculator-form-section__title--primary {
-  color: #34483b;
-  font-size: 0.94rem;
+  color: var(--green-700);
+  font-size: 0.78rem;
+  font-weight: var(--weight-strong);
+  letter-spacing: 0.06em;
+  margin: 0 0 var(--space-1);
+  text-transform: uppercase;
 }
 
 .calculator-control-group {
-  background: rgba(247, 250, 245, 0.78);
-  border: 1px solid #d6e2d8;
+  background: var(--color-control-group-bg);
+  border: 1px solid var(--color-control-group-border);
   border-radius: var(--radius-md);
   display: grid;
-  gap: var(--space-2);
+  gap: var(--space-3);
   padding: var(--space-3);
 }
 
-.calculator-control-group--income {
-  background: #eef7e8;
-  border-color: #c5dbc2;
+/* Dentro de un grupo de controles los campos blancos deben verse claros.
+   Subimos el contraste del borde para que no parezcan flotando sobre el
+   fondo verde. */
+.calculator-control-group .plain-input,
+.calculator-control-group .money-input,
+.calculator-control-group .unit-input {
+  border-color: #5e7468;
 }
 
 .calculator-form-row {
@@ -1006,10 +1019,11 @@ main {
 }
 
 .result-breakdown div {
+  align-items: baseline;
   display: flex;
   gap: var(--space-3);
   justify-content: space-between;
-  padding-top: var(--space-2);
+  padding-top: 13px;
 }
 
 .result-breakdown div + div {
@@ -1073,7 +1087,7 @@ main {
 }
 
 .result-card__actions {
-  margin-top: auto;
+  margin-top: var(--space-1);
   padding-top: var(--space-3);
 }
 
@@ -1089,8 +1103,8 @@ main {
   flex-basis: 100%;
   font-size: 0.88rem;
   line-height: 1.35;
-  margin: var(--space-1) 0 0;
-  min-height: 3.35rem;
+  margin: var(--space-2) 0 0;
+  min-height: auto;
   padding-top: var(--space-2);
 }
 
@@ -1766,6 +1780,11 @@ main {
   color: var(--color-text-inverse);
 }
 
+.contact-tab:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+
 .contact-form {
   background: rgba(255, 255, 255, 0.94);
   border: 1px solid var(--color-border);
@@ -1782,17 +1801,19 @@ main {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.contact-form__actions {
+/* Footer del form de contacto: destino email a la izquierda, botón
+   "Abrir correo" a la derecha. En mobile se apilan. */
+.contact-form__footer {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-top: var(--space-1);
 }
 
-.contact-form__actions .button {
-  min-width: 132px;
+.contact-form__footer .small-note {
+  margin: 0;
 }
 
 /* -- 13. Responsive ---------------------------------------------------- */
@@ -1903,7 +1924,9 @@ main {
   }
 
   .steps-strip,
-  .contact-tabs {
+  .contact-tabs,
+  .contact-form__grid,
+  .quick-access-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1932,9 +1955,14 @@ main {
   .calculator-actions .button,
   .result-card__actions .button,
   .hero__actions .button,
-  .contact-form__actions .button,
+  .contact-form__footer .button,
   .quick-tool-card .button {
     width: 100%;
+  }
+
+  .contact-form__footer {
+    align-items: stretch;
+    flex-direction: column;
   }
 
 }

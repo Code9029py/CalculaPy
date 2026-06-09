@@ -1,11 +1,13 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { combustibleMetadata } from "../calculators/combustible/metadata";
-import { cuotasMetadata } from "../calculators/cuotas/metadata";
-import { importacionMetadata } from "../calculators/importacion/metadata";
-import { ivaMetadata } from "../calculators/iva/metadata";
-import { presupuestoMetadata } from "../calculators/presupuesto/metadata";
+import {
+  calculatorRegistry,
+  getCalculatorPath
+} from "../calculators/registry";
+import type { CalculatorMetadata } from "../calculators/types";
 import { PageMeta } from "../components/PageMeta";
+import { getRecentCalculators } from "../utils/recentCalculators";
 
 const usageSteps = [
   "Elegí una calculadora.",
@@ -13,11 +15,48 @@ const usageSteps = [
   "Revisá el resultado y el desglose."
 ];
 
+/* Descripciones cortas pensadas para la card de la home.
+   Las del metadata son más largas y están pensadas para el catálogo y SEO. */
+const shortDescriptions: Record<string, string> = {
+  iva: "Agregá o separá IVA con tasas 5% y 10%.",
+  cuotas: "Compará contado contra cuotas.",
+  presupuesto: "Estimá ingresos, gastos y saldo.",
+  combustible: "Estimá litros y costo del viaje.",
+  importacion: "Estimá el costo final de una compra internacional."
+};
+
+function getShortDescription(calculator: CalculatorMetadata) {
+  return shortDescriptions[calculator.slug] ?? calculator.description;
+}
+
+function findCalculator(slug: string) {
+  return calculatorRegistry.find((calculator) => calculator.slug === slug);
+}
+
 export function HomePage() {
-  const CombustibleIcon = combustibleMetadata.icon;
-  const CuotasIcon = cuotasMetadata.icon;
-  const ImportacionIcon = importacionMetadata.icon;
-  const PresupuestoIcon = presupuestoMetadata.icon;
+  const [recentSlugs, setRecentSlugs] = useState<string[]>([]);
+
+  /* Leemos del localStorage en el cliente. En SSR esto se ejecuta tras el
+     hydrate, lo cual está bien — el render inicial muestra el fallback. */
+  useEffect(() => {
+    setRecentSlugs(getRecentCalculators(3));
+  }, []);
+
+  const recentCalculators = recentSlugs
+    .map((slug) => findCalculator(slug))
+    .filter((value): value is CalculatorMetadata => Boolean(value));
+
+  const hasRecent = recentCalculators.length > 0;
+
+  const fallbackCalculators = calculatorRegistry.slice(0, 3);
+  const calculatorsToShow = hasRecent ? recentCalculators : fallbackCalculators;
+
+  const sectionHeading = hasRecent
+    ? "Usadas recientemente"
+    : "Empezá por aquí";
+  const sectionAriaLabel = hasRecent
+    ? "Últimas calculadoras que usaste"
+    : "Calculadoras destacadas para empezar";
 
   return (
     <section className="page page--home">
@@ -62,97 +101,35 @@ export function HomePage() {
           aria-labelledby="tools-heading"
         >
           <div className="section-heading section-heading--compact">
-            <h2 id="tools-heading">Acceso rápido</h2>
+            <h2 id="tools-heading">{sectionHeading}</h2>
           </div>
-          <div className="quick-access-grid" aria-label="Herramientas disponibles">
-            <article className="tool-card tool-card--available quick-tool-card">
-              <span className="tool-icon" aria-hidden="true">IVA</span>
-              <div className="quick-tool-card__body">
-                <p className="calculator-card__category">
-                  {ivaMetadata.category}
-                </p>
-                <h3>{ivaMetadata.title}</h3>
-                <p>Agregá o separá IVA con tasas 5% y 10%.</p>
-              </div>
-              <Link
-                className="button button--primary button--compact"
-                to="/calculadoras/iva"
-              >
-                Abrir
-              </Link>
-            </article>
-            <article className="tool-card tool-card--available quick-tool-card">
-              <span className="tool-icon" aria-hidden="true">
-                <CuotasIcon size={18} />
-              </span>
-              <div className="quick-tool-card__body">
-                <p className="calculator-card__category">
-                  {cuotasMetadata.category}
-                </p>
-                <h3>{cuotasMetadata.title}</h3>
-                <p>Compará contado contra cuotas.</p>
-              </div>
-              <Link
-                className="button button--primary button--compact"
-                to="/calculadoras/cuotas"
-              >
-                Abrir
-              </Link>
-            </article>
-            <article className="tool-card tool-card--available quick-tool-card">
-              <span className="tool-icon" aria-hidden="true">
-                <PresupuestoIcon size={18} />
-              </span>
-              <div className="quick-tool-card__body">
-                <p className="calculator-card__category">
-                  {presupuestoMetadata.category}
-                </p>
-                <h3>{presupuestoMetadata.title}</h3>
-                <p>Estimá ingresos, gastos y saldo.</p>
-              </div>
-              <Link
-                className="button button--primary button--compact"
-                to="/calculadoras/presupuesto"
-              >
-                Abrir
-              </Link>
-            </article>
-            <article className="tool-card tool-card--available quick-tool-card">
-              <span className="tool-icon" aria-hidden="true">
-                <CombustibleIcon size={18} />
-              </span>
-              <div className="quick-tool-card__body">
-                <p className="calculator-card__category">
-                  {combustibleMetadata.category}
-                </p>
-                <h3>{combustibleMetadata.title}</h3>
-                <p>Estimá litros y costo del viaje.</p>
-              </div>
-              <Link
-                className="button button--primary button--compact"
-                to="/calculadoras/combustible"
-              >
-                Abrir
-              </Link>
-            </article>
-            <article className="tool-card tool-card--available quick-tool-card">
-              <span className="tool-icon" aria-hidden="true">
-                <ImportacionIcon size={18} />
-              </span>
-              <div className="quick-tool-card__body">
-                <p className="calculator-card__category">
-                  {importacionMetadata.category}
-                </p>
-                <h3>{importacionMetadata.title}</h3>
-                <p>Estimá el costo final de una compra internacional.</p>
-              </div>
-              <Link
-                className="button button--primary button--compact"
-                to="/calculadoras/importacion"
-              >
-                Abrir
-              </Link>
-            </article>
+          <div className="quick-access-grid" aria-label={sectionAriaLabel}>
+            {calculatorsToShow.map((calculator) => {
+              const Icon = calculator.icon;
+              return (
+                <article
+                  className="tool-card tool-card--available quick-tool-card"
+                  key={calculator.slug}
+                >
+                  <span className="tool-icon" aria-hidden="true">
+                    <Icon size={18} />
+                  </span>
+                  <div className="quick-tool-card__body">
+                    <p className="calculator-card__category">
+                      {calculator.category}
+                    </p>
+                    <h3>{calculator.title}</h3>
+                    <p>{getShortDescription(calculator)}</p>
+                  </div>
+                  <Link
+                    className="button button--primary button--compact"
+                    to={getCalculatorPath(calculator)}
+                  >
+                    Abrir
+                  </Link>
+                </article>
+              );
+            })}
           </div>
         </section>
 

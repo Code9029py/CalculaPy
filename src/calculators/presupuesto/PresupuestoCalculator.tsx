@@ -174,119 +174,115 @@ export function PresupuestoCalculator() {
         <div className="calculator-form calculator-panel">
           <div className="calculator-form-section">
             <p className="calculator-form-section__title">Datos principales</p>
-            <div className="calculator-control-group calculator-control-group--income">
-              <div className="field-group">
-                <label htmlFor="presupuesto-income">Ingresos mensuales</label>
-                <div className="money-input">
-                  <span aria-hidden="true">Gs.</span>
-                  <input
-                    id="presupuesto-income"
-                    inputMode="decimal"
-                    placeholder="3.000.000"
-                    type="text"
-                    value={monthlyIncomeText}
-                    onChange={(event) => {
-                      setMonthlyIncomeText(event.target.value);
-                      resetCopyState();
-                    }}
-                    aria-describedby="presupuesto-income-error"
-                    aria-invalid={Boolean(validationErrors.monthlyIncome)}
-                  />
-                </div>
-                <ValidationMessage
-                  id="presupuesto-income-error"
-                  message={validationErrors.monthlyIncome}
+            <div className="field-group">
+              <label htmlFor="presupuesto-income">Ingresos mensuales</label>
+              <div className="money-input">
+                <span aria-hidden="true">Gs.</span>
+                <input
+                  id="presupuesto-income"
+                  inputMode="decimal"
+                  placeholder="3.000.000"
+                  type="text"
+                  value={monthlyIncomeText}
+                  onChange={(event) => {
+                    setMonthlyIncomeText(event.target.value);
+                    resetCopyState();
+                  }}
+                  aria-describedby="presupuesto-income-error"
+                  aria-invalid={Boolean(validationErrors.monthlyIncome)}
                 />
               </div>
+              <ValidationMessage
+                id="presupuesto-income-error"
+                message={validationErrors.monthlyIncome}
+              />
             </div>
+          </div>
 
-            <div className="calculator-form-section">
-              <p className="calculator-form-section__title">Gastos</p>
-              <div className="calculator-control-group">
-                <div className="calculator-form-row">
-                  <div className="field-group">
-                    <label htmlFor="presupuesto-fixed">Gastos fijos</label>
-                    <div className="money-input">
-                      <span aria-hidden="true">Gs.</span>
-                      <input
-                        id="presupuesto-fixed"
-                        inputMode="decimal"
-                        placeholder="1.500.000"
-                        type="text"
-                        value={fixedExpensesText}
-                        onChange={(event) => {
-                          setFixedExpensesText(event.target.value);
-                          resetCopyState();
-                        }}
-                        aria-describedby="presupuesto-fixed-error"
-                        aria-invalid={Boolean(validationErrors.fixedExpenses)}
-                      />
-                    </div>
-                    <ValidationMessage
-                      id="presupuesto-fixed-error"
-                      message={validationErrors.fixedExpenses}
+          <div className="calculator-form-section">
+            <p className="calculator-form-section__title">Gastos</p>
+            <div className="calculator-control-group">
+              <div className="calculator-form-row">
+                <div className="field-group">
+                  <label htmlFor="presupuesto-fixed">Gastos fijos</label>
+                  <div className="money-input">
+                    <span aria-hidden="true">Gs.</span>
+                    <input
+                      id="presupuesto-fixed"
+                      inputMode="decimal"
+                      placeholder="1.500.000"
+                      type="text"
+                      value={fixedExpensesText}
+                      onChange={(event) => {
+                        setFixedExpensesText(event.target.value);
+                        resetCopyState();
+                      }}
+                      aria-describedby="presupuesto-fixed-error"
+                      aria-invalid={Boolean(validationErrors.fixedExpenses)}
                     />
                   </div>
+                  <ValidationMessage
+                    id="presupuesto-fixed-error"
+                    message={validationErrors.fixedExpenses}
+                  />
+                </div>
 
-                  <div className="field-group">
-                    <label htmlFor="presupuesto-variable">
-                      Gastos variables
-                    </label>
-                    <div className="money-input">
-                      <span aria-hidden="true">Gs.</span>
-                      <input
-                        id="presupuesto-variable"
-                        inputMode="decimal"
-                        placeholder="800.000"
-                        type="text"
-                        value={variableExpensesText}
-                        onChange={(event) => {
-                          setVariableExpensesText(event.target.value);
-                          resetCopyState();
-                        }}
-                        aria-describedby="presupuesto-variable-error"
-                        aria-invalid={Boolean(validationErrors.variableExpenses)}
-                      />
-                    </div>
-                    <ValidationMessage
-                      id="presupuesto-variable-error"
-                      message={validationErrors.variableExpenses}
+                <div className="field-group">
+                  <label htmlFor="presupuesto-variable">
+                    Gastos variables
+                  </label>
+                  <div className="money-input">
+                    <span aria-hidden="true">Gs.</span>
+                    <input
+                      id="presupuesto-variable"
+                      inputMode="decimal"
+                      placeholder="800.000"
+                      type="text"
+                      value={variableExpensesText}
+                      onChange={(event) => {
+                        setVariableExpensesText(event.target.value);
+                        resetCopyState();
+                      }}
+                      aria-describedby="presupuesto-variable-error"
+                      aria-invalid={Boolean(validationErrors.variableExpenses)}
                     />
                   </div>
+                  <ValidationMessage
+                    id="presupuesto-variable-error"
+                    message={validationErrors.variableExpenses}
+                  />
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="calculator-form-section calculator-form-section--optional">
+          <div className="calculator-form-section">
             <p className="calculator-form-section__title">Opcional</p>
-            <div className="calculator-control-group">
-              <div className="field-group">
-                <label htmlFor="presupuesto-savings">Ahorro objetivo</label>
-                <div className="money-input">
-                  <span aria-hidden="true">Gs.</span>
-                  <input
-                    id="presupuesto-savings"
-                    inputMode="decimal"
-                    placeholder="300.000"
-                    type="text"
-                    value={desiredSavingsText}
-                    onChange={(event) => {
-                      setDesiredSavingsText(event.target.value);
-                      resetCopyState();
-                    }}
-                    aria-describedby="presupuesto-savings-help presupuesto-savings-error"
-                    aria-invalid={Boolean(validationErrors.desiredSavings)}
-                  />
-                </div>
-                <p className="field-help" id="presupuesto-savings-help">
-                  Dejá vacío si no querés incluir ahorro.
-                </p>
-                <ValidationMessage
-                  id="presupuesto-savings-error"
-                  message={validationErrors.desiredSavings}
+            <div className="field-group">
+              <label htmlFor="presupuesto-savings">Ahorro objetivo</label>
+              <div className="money-input">
+                <span aria-hidden="true">Gs.</span>
+                <input
+                  id="presupuesto-savings"
+                  inputMode="decimal"
+                  placeholder="300.000"
+                  type="text"
+                  value={desiredSavingsText}
+                  onChange={(event) => {
+                    setDesiredSavingsText(event.target.value);
+                    resetCopyState();
+                  }}
+                  aria-describedby="presupuesto-savings-help presupuesto-savings-error"
+                  aria-invalid={Boolean(validationErrors.desiredSavings)}
                 />
               </div>
+              <p className="field-help" id="presupuesto-savings-help">
+                Dejá vacío si no querés incluir ahorro.
+              </p>
+              <ValidationMessage
+                id="presupuesto-savings-error"
+                message={validationErrors.desiredSavings}
+              />
             </div>
           </div>
 
